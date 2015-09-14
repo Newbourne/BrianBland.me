@@ -1,34 +1,11 @@
-import Hapi from 'hapi'
-import path from 'path'
+require("babel/polyfill")
 
-var server = new Hapi.Server()
-server.connection({
-    host: '0.0.0.0',
-    port: process.env.PORT || 8080,
-    routes:{
-        cors: true,
-        payload:{
-            timeout: 20000 // 20 seconds
-        }
-    }
-})
+//require("babel").transform("code", { optional: ["runtime"] });
 
-server.register([
-        {
-            register: require('./../register.js'),
-            options: { }
-        }        
-    ],
-    { },
-    function (err) {
-        if (err) {
-            throw err
-        }
+require("babel/register")({
+  optional: ['es7.decorators',
+          'es7.asyncFunctions',
+          'es7.classProperties']
+});
 
-        server.start(function () {
-            server.log('info', 'Server running at: ' + server.info.uri)
-            console.info('==> ✅  Server is listening')
-            console.info('==>   Go to ' + server.info.uri)
-        })
-    }
-)
+require('./server')

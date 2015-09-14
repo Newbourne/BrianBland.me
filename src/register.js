@@ -7,8 +7,8 @@ function register(server, options, next){
             hbs: require('handlebars')
         },
         relativeTo: __dirname,
-        path: './server/views',
-        layoutPath: './server/views/layouts',
+        path: './../src/server/views',
+        layoutPath: './../src/server/views/layouts',
         layout: 'index',
         isCached: true
     });

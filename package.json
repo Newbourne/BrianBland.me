@@ -4,10 +4,10 @@
   "description": "CMS Server",
   "main": "",
   "scripts": {
-    "clean": "rimraf dist/*",
+    "clean": "rimraf dist/* && rimraf lib/*",
     "prebuild": "npm run clean -s",
     "build": "npm run prebuild && gulp && npm run build-server",
-    "build-server": "babel src --out-dir lib --stage 0 --optional 'es7.decorators' --optional 'es7.asyncFunctions' --optional 'es7.classProperties'",
+    "build-server": "babel --stage 0 --optional runtime src --out-dir lib",
     "test": "lab -T node_modules/lab-babel -t 90 -S -c -D -v",
     "start": "node lib/index.js",
     "lint": "eslint ./ || true",
@@ -44,6 +44,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^4.0.5",
+    "babel-runtime": "^5.8.24",
     "babelify": "^6.3.0",
     "browser-sync": "^2.8.2",
     "browserify": "^11.0.1",
