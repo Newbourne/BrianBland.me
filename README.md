@@ -1,16 +1,5 @@
-# HasteCMS
-JSON API+CMS
+# BrianBland.me
+Brian Bland (Newbourne) Personal Development Website. Nothing to see here. Move along.
 
 ### Development (Watch)
-
 - npm run dev
-
-### To Do:
-
-#### Continuous Build
-- Fix build:* processes to not break on failure
-- Add Linting
-
-#### Features
-- FlexboxGrid Layout (large-screen)
-- Material-UI Controls
