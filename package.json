@@ -4,11 +4,16 @@
   "description": "CMS Server",
   "main": "",
   "scripts": {
+    "clean": "rimraf dist/*",
+    "prebuild": "npm run clean -s",
+    "build": "npm run prebuild && gulp && npm run build-server",
+    "build-server": "babel src --out-dir lib --stage 0 --optional 'es7.decorators' --optional 'es7.asyncFunctions' --optional 'es7.classProperties'",
     "test": "lab -T node_modules/lab-babel -t 90 -S -c -D -v",
-    "start": "babel-node index.js BROKEN!!!!",
+    "start": "node lib/index.js",
     "lint": "eslint ./ || true",
-    "babel-node": "babel-node --stage 0",
-    "dev": "NODE_ENV=dev gulp server:dev"
+    "babel": "babel --stage 0",
+    "dev": "NODE_ENV=dev gulp server:dev",
+    "postinstall": "npm run build"
   },
   "author": "Brian Bland",
   "license": "BSD-2-Clause",
@@ -58,6 +63,7 @@
     "parallelshell": "^2.0.0",
     "reactify": "^1.1.1",
     "require-dir": "^0.3.0",
+    "rimraf": "^2.4.3",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.3.1"
