@@ -6,22 +6,23 @@ MAINTAINER Brian Bland <brian.bland@live.com>
 # Bundle app source
 
 COPY . /src
+WORKDIR /src
 
 RUN npm install -g gulp
 RUN npm install -g babel
 
 # Install app dependencies
 
-RUN cd /src; npm install
+RUN npm install
 
 # Doesn't appear to work correctly
-RUN cd /src; npm run build
+
+RUN npm run build
 
 # Run Commands
 
 CMD ["npm", "run", "start"]
 EXPOSE 8080
-
 
 # Useful Commands
 
