@@ -8,6 +8,8 @@ MAINTAINER Brian Bland <brian.bland@live.com>
 COPY . /src
 WORKDIR /src
 
+RUN cp data/Raegan.png dist/
+
 RUN npm install -g gulp
 RUN npm install -g babel
 
@@ -28,6 +30,12 @@ EXPOSE 8080
 
 # Run
 # sudo docker run -d -p 80:8080
+# docker run -t bland/brian-bland-me-node -p 80:8080
 
 # To view iptables mapping
 # sudo iptables -t nat -L -n
+
+# Delete all containers
+#docker rm $(docker ps -a -q)
+# Delete all images
+#docker rmi $(docker images -q)
