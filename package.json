@@ -2,7 +2,10 @@
   "name": "app",
   "version": "0.0.0",
   "description": "CMS Server",
-  "main": "",
+  "main": "lib/index",
+  "config": {
+    "unsafe-perm": true
+  },
   "scripts": {
     "clean": "rimraf dist/* && rimraf lib/*",
     "prebuild": "npm run clean -s",
