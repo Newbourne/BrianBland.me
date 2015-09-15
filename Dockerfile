@@ -6,7 +6,9 @@
 FROM node:0.12.4-onbuild
 MAINTAINER Brian Bland <brian.bland@live.com>
 
-#RUN apt-get update
+RUN mkdir dist
+RUN mkdir lib
+
 RUN npm install -g gulp
 RUN npm install -g babel
 RUN npm install

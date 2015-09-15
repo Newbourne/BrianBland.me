@@ -38,7 +38,7 @@ gulp.task('server:dev', ['server:client'], function() {
     });
 
     gulp.watch(appRoot + 'app/**/*.js', ['build:app'], bs.reload);
-    gulp.watch(appRoot + '/app/sass/**/*.scss', ['build:sass'], bs.reload);
+    gulp.watch(appRoot + 'app/sass/**/*.scss', ['build:sass'], bs.reload);
     gulp.watch('./build/vendors.js', ['build:vendors'], bs.reload);
 });
 
