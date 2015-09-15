@@ -8,8 +8,6 @@ MAINTAINER Brian Bland <brian.bland@live.com>
 COPY . /src
 WORKDIR /src
 
-RUN cp data/Raegan.png dist/
-
 RUN npm install -g gulp
 RUN npm install -g babel
 
@@ -17,9 +15,7 @@ RUN npm install -g babel
 
 RUN npm install
 
-# Doesn't appear to work correctly
-
-RUN npm run build
+RUN cp data/Raegan.png dist/
 
 # Run Commands
 
