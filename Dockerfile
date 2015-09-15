@@ -1,9 +1,7 @@
 # Image Version
 
-#FROM ubuntu:14.04
-#FROM node:0.12.4-onbuild
-FROM linode/server-node-js
 MAINTAINER Brian Bland <brian.bland@live.com>
+FROM node:0.12.7-wheezy
 
 # Bundle app source
 
@@ -11,9 +9,6 @@ COPY . /src
 
 RUN npm install -g gulp
 RUN npm install -g babel
-
-RUN nvm install 0.12.7
-RUN nvm use 0.12.7
 
 # Install app dependencies
 
