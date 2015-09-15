@@ -1,7 +1,7 @@
 # Image Version
 
-MAINTAINER Brian Bland <brian.bland@live.com>
 FROM node:0.12.7-wheezy
+MAINTAINER Brian Bland <brian.bland@live.com>
 
 # Bundle app source
 
@@ -15,28 +15,12 @@ RUN npm install -g babel
 RUN cd /src; npm install
 
 # Doesn't appear to work correctly
-RUN npm run build
+RUN cd /src; npm run build
 
 # Run Commands
 
 CMD ["npm", "run", "start"]
 EXPOSE 8080
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # Useful Commands
