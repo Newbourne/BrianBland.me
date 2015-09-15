@@ -15,6 +15,8 @@ RUN npm install -g babel
 
 RUN npm install
 
+RUN npm run build
+
 RUN cp data/Raegan.png dist/
 
 # Run Commands
