@@ -28,14 +28,17 @@ EXPOSE 8080
 
 # Useful Commands
 
+# Build
+# docker build -t bland/brian-bland-me-node .
+
 # Run
-# sudo docker run -d -p 80:8080
-# docker run -t bland/brian-bland-me-node -p 80:8080
+# docker run -d -p 80:8080 -t bland/brian-bland-me-node
 
 # To view iptables mapping
 # sudo iptables -t nat -L -n
 
 # Delete all containers
-#docker rm $(docker ps -a -q)
+# docker rm $(docker ps -a -q)
+
 # Delete all images
-#docker rmi $(docker images -q)
+# docker rmi $(docker images -q)
