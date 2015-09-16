@@ -4,8 +4,8 @@ import { prepareRoute } from '../../decorators'
 import * as Actions from '../../actions/AboutActions'
 import marked from 'marked'
 
-@prepareRoute(async function ({ redux, params: { } }) {
-    return await * [redux.dispatch(Actions.getData())]
+@prepareRoute(async function ({ store, params: { } }) {
+    return await store.dispatch(Actions.getData())
 })
 @connect(({ AboutReducer }) => ({ AboutReducer }))
 class About extends React.Component {

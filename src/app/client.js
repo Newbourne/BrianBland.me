@@ -12,25 +12,21 @@ import createRedux from '../tools/redux'
 const history = new BrowserHistory()
 
 const api = createAPI(
-  /**
- * Client's createRequest() method
- */
   ({ method, headers = {}, pathname, query = {}, body = {} }) => {
-    var url = `http://localhost:8080/${pathname}`;
+    var url = apiURL + pathname
     return request(method, url)
       .query(qs.stringify(query))
       .set(headers)
-      .send(body);
+      .send(body)
   }
 );
 
-const redux = createRedux(api, __APP_STATE__);
-
-console.log('client', redux)
+const initialState = window.__APP_STATE__
+const store = createRedux(api, initialState)
 
 React.render(
-  <Provider store={redux}>
-    {() => <Router {...{ history }} />}
+  <Provider store={store}>
+    {() => <Router routes={routes} {...{ history }} />}
   </Provider>,
   document.getElementById('app')
 )

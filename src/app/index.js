@@ -6,4 +6,6 @@ require("babel/polyfill")
 //           'es7.classProperties']
 // });
 
-require('./server')
+window.apiURL = `http://localhost:8080`
+
+require('./client.js')

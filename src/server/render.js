@@ -18,7 +18,7 @@ export default function render(req, rep, layout, { payload }) {
 
     const api = createAPI(
         ({ method, headers = {}, pathname, query = {}, body = {} }) => {
-          var url = `http://localhost:8080${pathname}`;
+          var url = `http://localhost:8080${pathname}`
           return request(method, url)
             .query(qs.stringify(query))
             .set(headers)
@@ -26,7 +26,7 @@ export default function render(req, rep, layout, { payload }) {
         }
     );
 
-    const redux = createRedux(api)
+    const store = createRedux(api)
 
     ReactRouter.run(routes, location, async (err, routerState) => {
         try {
@@ -46,16 +46,16 @@ export default function render(req, rep, layout, { payload }) {
                 if (!prepareRoute) {
                     continue
                 }
-                await prepareRoute({ redux, params, location })
+                await prepareRoute({ store, params, location })
             }
 
             const body = React.renderToStaticMarkup(
-                <Provider store={redux}>
+                <Provider store={store}>
                   {() => <AppRouter {...{ ...routerState, location, history }} />}
                 </Provider>
             )
 
-            const state = redux.getState()
+            const state = JSON.stringify(store.getState())
 
             rep.view(layout, { title, state, body })
         }

@@ -83,11 +83,12 @@ gulp.task('build:app', function() {
     b.external(vendor.file)
   })
 
-  b.add(appRoot + 'app/client.js');
+  b.add(appRoot + 'app/index.js');
 
   return b
         .transform(babelify.configure({
           optional: [
+          'runtime',
           'es7.decorators',
           'es7.asyncFunctions',
           'es7.classProperties'

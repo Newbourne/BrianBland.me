@@ -1,6 +1,5 @@
 import { createStore, applyMiddleware } from 'redux'
 import _ from 'lodash'
-//import promiseMiddleware from 'redux-promise'
 import reducers from '../app/reducers';
 
 function promiseMiddleware (api, getState) {

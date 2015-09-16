@@ -12,7 +12,7 @@
     "start": "node lib/index.js",
     "lint": "eslint ./ || true",
     "babel": "babel --stage 0",
-    "dev": "NODE_ENV=dev gulp server:dev",
+    "dev": "NODE_ENV=development gulp server:dev",
     "postinstall": "npm run build"
   },
   "author": "Brian Bland",
