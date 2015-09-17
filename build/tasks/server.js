@@ -1,6 +1,6 @@
 'use strict';
 var gulp       = require('gulp');
-var bs         = require('browser-sync').create();
+var bs         = require('browser-sync');
 var source     = require('vinyl-source-stream');
 var buffer     = require('vinyl-buffer');
 var browserify = require("browserify");
@@ -15,26 +15,26 @@ var vendors    = require('./../vendors');
 
 var appRoot = './src/'
 
-gulp.task('server:client', function (cb) {
-  var started = false;
+gulp.task('server:client', [], function (cb) {
+    var started = false;
     nodemon({
-        script: appRoot + 'index.js',
-        exec: 'babel-node --stage 0',
-        ignore: ["node_modules/**",  appRoot + "app/**", "dist/**", "build/**"],
-        tasks: []
-  }).on('start', function () {
-        // to avoid nodemon being started multiple times
-        // thanks @matthisk
-        if (!started) {
-            cb();
-            started = true; 
-        } 
-    });
+      script: appRoot + 'index.js',
+      stdin: false,
+      restartable: false,
+      exec: 'babel-node --stage 0',
+      ignore: ["node_modules/**",  appRoot + "app/**", "dist/**", "build/**"]
+    }).on('start', function() {
+      if (!started){
+        started = true;
+        cb();
+      }
+    })
 });
 
 gulp.task('server:dev', ['server:client'], function() {
-    bs.init({
-        proxy: "localhost:8080/"
+    bs({
+        proxy: "localhost:8080/",
+        open: false
     });
 
     gulp.watch(appRoot + 'app/**/*.js', ['build:app'], bs.reload);
