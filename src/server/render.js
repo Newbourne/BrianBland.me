@@ -11,7 +11,7 @@ import createAPI from '../tools/request'
 import routes from '../app/routes'
 import AppRouter from '../app/components/Router'
 
-export default function render(req, rep, layout, { payload }) {
+export default function render (req, rep, layout, { payload }) {
     const { path, query } = req;
     const location = new Location(path, query);
     const history = new History(path);
@@ -30,6 +30,10 @@ export default function render(req, rep, layout, { payload }) {
 
     ReactRouter.run(routes, location, async (err, routerState) => {
         try {
+            console.log('routrs', routes)
+            console.log('location', location)
+            console.log('router state', routerState)
+
             if (err) {
                 console.log('error immediately')
                 throw err
@@ -60,7 +64,8 @@ export default function render(req, rep, layout, { payload }) {
             rep.view(layout, { title, state, body })
         }
         catch(err) {
-            rep(err.stack).statusCode(500)
+            console.log('err', err.stack)
+            rep.redirect('/')
         }
     });
 }
