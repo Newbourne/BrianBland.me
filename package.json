@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf dist/* && rimraf lib/*",
     "prebuild": "npm run clean -s",
-    "build": "NODE_ENV=production npm run prebuild && gulp && npm run build-server",
+    "build": "NODE_ENV=production npm run prebuild && gulp default && npm run build-server",
     "build-server": "babel --stage 0 --optional runtime src --out-dir lib",
     "test": "lab -T node_modules/lab-babel -t 90 -S -c -D -v",
     "start": "node lib/index.js",
