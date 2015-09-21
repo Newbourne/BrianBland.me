@@ -1,5 +1,6 @@
 module.exports = [
 	{ file: 'react', expose: 'react' },
+	{ file: 'react/lib/keyMirror', expose: 'react/lib/keyMirror' },
 	{ file: 'react/addons', expose: 'react/addons' },
 	{ file: 'react-mixin', expose: 'react-mixin' },
 	{ file: 'react-router', expose: 'react-router' },
@@ -15,5 +16,9 @@ module.exports = [
 	{ file: 'material-ui', expose: 'material-ui' },
 	{ file: 'qs', expose: 'qs' },
 	{ file: 'superagent', expose: 'superagent' },
-	{ file: 'immutable', expose: 'immutable' }
+	{ file: 'immutable', expose: 'immutable' },
+	{ file: 'babel/polyfill', expose: 'babel/polyfill' },
+	{ file: 'babel-runtime/core-js', expose: 'babel-runtime/core-js' },
+	{ file: 'lodash', expose: 'lodash' },
+	{ file: 'url', expose: 'url' }
 ];

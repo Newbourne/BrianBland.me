@@ -6,6 +6,7 @@ var buffer     = require('vinyl-buffer');
 var browserify = require("browserify");
 var babelify   = require("babelify");
 var _          = require("lodash");
+var envify     = require('envify/custom');
 var nodemon    = require('gulp-nodemon');
 var sass       = require('gulp-sass');
 var rename     = require('gulp-rename');
@@ -44,8 +45,8 @@ gulp.task('server:dev', ['server:client'], function() {
 
 gulp.task('build:vendors', function() {
   var b = browserify({
-          insertGlobals : false,
-            debug : !process.env.NODE_ENV
+          insertGlobals: true,
+          detectGlobals: true
         })
 
   _.forEach(vendors, function(vendor) {
@@ -75,24 +76,31 @@ gulp.task('build:sass', function () {
 
 gulp.task('build:app', function() {
   var b = browserify({
-          insertGlobals : false,
-            debug : !process.env.NODE_ENV
-        })
+            insertGlobals: false,
+            detectGlobals: false
+          })
 
   _.forEach(vendors, function(vendor) {
     b.external(vendor.file)
   })
-
+  
   b.add(appRoot + 'app/index.js');
 
   return b
         .transform(babelify.configure({
-          optional: [
-          'runtime',
-          'es7.decorators',
-          'es7.asyncFunctions',
-          'es7.classProperties'
-          ]
+          stage: 0
+        }))
+        // .transform(babelify.configure({
+        //   optional: [
+        //     'runtime',
+        //     'es7.decorators',
+        //     'es7.asyncFunctions',
+        //     'es7.classProperties'
+        //   ]
+        // }))
+        .transform(envify({
+          NODE_ENV: process.env.NODE_ENV,
+          API_URL: (process.env.NODE_ENV === 'development') ? 'http://localhost:8080' : 'http://brianbland.me'
         }))
         .bundle()
         .pipe(source('app.js'))

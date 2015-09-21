@@ -13,7 +13,7 @@ const history = new BrowserHistory()
 
 const api = createAPI(
   ({ method, headers = {}, pathname, query = {}, body = {} }) => {
-    var url = apiURL + pathname
+    var url = process.env.API_URL + pathname
     return request(method, url)
       .query(qs.stringify(query))
       .set(headers)

@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf dist/* && rimraf lib/*",
     "prebuild": "npm run clean -s",
-    "build": "npm run prebuild && gulp && npm run build-server",
+    "build": "NODE_ENV=production npm run prebuild && gulp && npm run build-server",
     "build-server": "babel --stage 0 --optional runtime src --out-dir lib",
     "test": "lab -T node_modules/lab-babel -t 90 -S -c -D -v",
     "start": "node lib/index.js",
@@ -21,6 +21,7 @@
     "babel": "^5.6.14",
     "babel-core": "^5.8.22",
     "boom": "^2.8.0",
+    "envify": "^3.4.0",
     "handlebars": "^3.0.3",
     "hapi": "^8.8.1",
     "immutable": "^3.7.5",
@@ -70,8 +71,8 @@
     "watchify": "^3.3.1"
   },
   "repository": {
-    "description":"",
-    "version":"0.0.1",
+    "description": "",
+    "version": "0.0.1",
     "private": true
   }
 }

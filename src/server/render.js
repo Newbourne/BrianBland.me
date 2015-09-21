@@ -30,9 +30,6 @@ export default function render (req, rep, layout, { payload }) {
 
     ReactRouter.run(routes, location, async (err, routerState) => {
         try {
-            console.log('routrs', routes)
-            console.log('location', location)
-            console.log('router state', routerState)
 
             if (err) {
                 console.log('error immediately')
