@@ -18,7 +18,7 @@ export default function render (req, rep, layout, { payload }) {
 
     const api = createAPI(
         ({ method, headers = {}, pathname, query = {}, body = {} }) => {
-          var url = `http://localhost:8080${pathname}`
+          var url = process.env.API_URL + pathname
           return request(method, url)
             .query(qs.stringify(query))
             .set(headers)

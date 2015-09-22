@@ -90,14 +90,6 @@ gulp.task('build:app', function() {
         .transform(babelify.configure({
           stage: 0
         }))
-        // .transform(babelify.configure({
-        //   optional: [
-        //     'runtime',
-        //     'es7.decorators',
-        //     'es7.asyncFunctions',
-        //     'es7.classProperties'
-        //   ]
-        // }))
         .transform(envify({
           NODE_ENV: process.env.NODE_ENV,
           API_URL: (process.env.NODE_ENV === 'development') ? 'http://localhost:8080' : 'http://brianbland.me'
