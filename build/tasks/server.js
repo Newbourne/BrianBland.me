@@ -34,8 +34,8 @@ gulp.task('server:client', [], function (cb) {
 
 gulp.task('server:dev', ['server:client'], function() {
     bs({
-        proxy: "localhost:8080/",
-        open: false
+        proxy: "localhost:8080",
+        open: true
     });
 
     gulp.watch(appRoot + 'app/**/*.js', ['build:app'], bs.reload);
@@ -92,7 +92,7 @@ gulp.task('build:app', function() {
         }))
         .transform(envify({
           NODE_ENV: process.env.NODE_ENV,
-          API_URL: (process.env.NODE_ENV === 'development') ? 'http://localhost:8080' : 'http://brianbland.me'
+          API_URL: (process.env.NODE_ENV === 'production') ? 'http://brianbland.me' : 'http://localhost:8080'
         }))
         .bundle()
         .pipe(source('app.js'))

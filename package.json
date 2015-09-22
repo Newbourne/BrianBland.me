@@ -6,10 +6,10 @@
   "scripts": {
     "clean": "rimraf dist/* && rimraf lib/*",
     "prebuild": "npm run clean -s",
-    "build": "NODE_ENV=production API_URL='http://brianbland.me' npm run prebuild && gulp default && npm run build-server",
+    "build": "npm run prebuild && NODE_ENV=production API_URL=http://brianbland.me gulp default && NODE_ENV=production API_URL=http://brianbland.me npm run build-server",
     "build-server": "babel --stage 0 --optional runtime src --out-dir lib",
     "test": "lab -T node_modules/lab-babel -t 90 -S -c -D -v",
-    "start": "node lib/index.js",
+    "start": "NODE_ENV=production API_URL=http://brianbland.me node lib/index.js",
     "lint": "eslint ./ || true",
     "babel": "babel --stage 0",
     "dev": "NODE_ENV=development gulp server:dev",

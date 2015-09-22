@@ -21,6 +21,7 @@ const api = createAPI(
   }
 );
 
+
 const initialState = window.__APP_STATE__
 const store = createRedux(api, initialState)
 

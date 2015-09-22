@@ -33,7 +33,7 @@ EXPOSE 8080
 # docker run -d -p 80:8080 -t bland/brian-bland-me-node
 
 # To view iptables mapping
-# sudo iptables -t nat -L -n
+# iptables -t nat -L -n
 
 # Delete all containers
 # docker rm $(docker ps -a -q)

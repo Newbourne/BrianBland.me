@@ -65,6 +65,7 @@ export default [
         path: '/{param*}',
         config: {
             handler: function (req, rep) {
+                console.log('redirected?')
                 render(req, rep, 'default', {})
             }
         }

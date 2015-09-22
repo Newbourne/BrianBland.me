@@ -18,7 +18,8 @@ export default function render (req, rep, layout, { payload }) {
 
     const api = createAPI(
         ({ method, headers = {}, pathname, query = {}, body = {} }) => {
-          var url = process.env.API_URL + pathname
+          var url = (process.env.API_URL || 'http://localhost:8080') + pathname
+          console.log('url', url)
           return request(method, url)
             .query(qs.stringify(query))
             .set(headers)
@@ -29,7 +30,7 @@ export default function render (req, rep, layout, { payload }) {
     const store = createRedux(api)
 
     ReactRouter.run(routes, location, async (err, routerState) => {
-        try {
+        //try {
 
             if (err) {
                 console.log('error immediately')
@@ -59,10 +60,11 @@ export default function render (req, rep, layout, { payload }) {
             const state = JSON.stringify(store.getState())
 
             rep.view(layout, { title, state, body })
-        }
-        catch(err) {
-            console.log('err', err.stack)
-            rep.redirect('/')
-        }
+        // }
+        // catch(err) {
+        //     console.log('err', location, err.stack)
+        //     //rep.redirect('/')
+        //     rep(err.stack).code(500);
+        // }
     });
 }
