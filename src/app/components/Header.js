@@ -8,22 +8,17 @@ export default class Header extends Component {
 
     render() {
         return (
-            <div className='b-header-con'>
-                <header className='b-header'>
-                    <div className='b-header-pic'>
-                        <a href='#'><img src='assets/Raegan.png' /></a>
-                    </div>
-                    <div className='b-header-name'>
+            <div>
+                    <div>
                         <a href='#'><h1>Brian Bland</h1></a>
                         <p>Software Engineer</p>                        
                     </div>
-                    <div className='b-nav-con'>
-                        <nav className='b-nav'>
+                    <div>
+                        <nav>
 							<Link to='/'>About</Link>
                             (coming soon)
                         </nav>
                     </div>
-                </header>
             </div>
         )
     }

@@ -1,24 +1,19 @@
 module.exports = [
 	{ file: 'react', expose: 'react' },
-	{ file: 'react/lib/keyMirror', expose: 'react/lib/keyMirror' },
+	{ file: 'react-dom', expose: 'react-dom' },
 	{ file: 'react/addons', expose: 'react/addons' },
-	{ file: 'react-mixin', expose: 'react-mixin' },
-	{ file: 'react-router', expose: 'react-router' },
-	{ file: 'react-router/lib/BrowserHistory', expose: 'react-router/lib/BrowserHistory' },
 	{ file: 'react-redux', expose: 'react-redux'},
+	{ file: 'react-router', expose: 'react-router'},
 	{ file: 'redux', expose: 'redux' },
 	{ file: 'redux-thunk', expose: 'redux-thunk' },
 	{ file: 'redux-promise', expose: 'redux-promise' },
-	{ file: 'lodash', expose: 'lodash' },
-	{ file: 'marked', expose: 'marked' },
-	{ file: 'isomorphic-fetch', expose: 'isomorphic-fetch' },
-	{ file: 'methods', expose: 'methods' },
-	{ file: 'material-ui', expose: 'material-ui' },
-	{ file: 'qs', expose: 'qs' },
-	{ file: 'superagent', expose: 'superagent' },
-	{ file: 'immutable', expose: 'immutable' },
 	{ file: 'babel/polyfill', expose: 'babel/polyfill' },
 	{ file: 'babel-runtime/core-js', expose: 'babel-runtime/core-js' },
 	{ file: 'lodash', expose: 'lodash' },
-	{ file: 'url', expose: 'url' }
+	{ file: 'react-tap-event-plugin', expose: 'react-tap-event-plugin' },
+	{ file: 'material-ui', expose: 'material-ui' },
+	{ file: 'history', expose: 'history' },
+	{ file: 'superagent', expose: 'superagent' }
 ];
+
+//{ file: 'paper', expose: 'paper' },

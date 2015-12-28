@@ -1,3 +1,2 @@
 export { default as Header } from './Header'
-export { default as Content } from './Content'
-export { default as Router } from './Router'
+export { default as Article } from './Article'

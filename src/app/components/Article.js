@@ -1,23 +1,21 @@
 import React, { PropTypes, Component } from 'react'
 
-export default class Content extends Component {
+export default class Article extends Component {
     constructor(props, context) {
         super(props, context)
     }
 
     render() {
         return (
-            <div className='b-content-con'>
-                <div className='b-content'>
+            <div>
                 { this.props.children &&
                     React.cloneElement(this.props.children)
                 }
-                </div>
             </div>
         )
     }
 }
 
-Content.propTypes = {
+Article.propTypes = {
     children: PropTypes.any
 }

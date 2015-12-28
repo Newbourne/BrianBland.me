@@ -1,9 +1,9 @@
 import React from 'react'
 import { Router, Route, Redirect } from 'react-router'
-import { App, About } from './views'
+import { App, Home } from './views'
 
 export default (
     <Route component={App}>
-    	<Route path='/' component={About} />
+    	<Route path='/' component={Home} />
     </Route>
 )

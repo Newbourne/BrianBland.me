@@ -1,7 +1,7 @@
-import keyMirror from 'react/lib/keyMirror';
+export const LOADING_PROGRESS = 'LOADING_PROGRESS'
 
-export default {
-	About: keyMirror({
-		getData: null
-	})
-};
+export const GET_MEDIA = 'GET_MEDIA'
+export const GET_MEDIA_SUCCESS = 'GET_MEDIA_SUCCESS'
+
+export const API_ERROR = 'API_ERROR'
+export const ERROR_RESET = 'ERROR_RESET'

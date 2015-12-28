@@ -1,6 +1,5 @@
 'use strict';
 var gulp       = require('gulp');
-var bs         = require('browser-sync');
 var source     = require('vinyl-source-stream');
 var buffer     = require('vinyl-buffer');
 var browserify = require("browserify");
@@ -12,35 +11,18 @@ var sass       = require('gulp-sass');
 var rename     = require('gulp-rename');
 var minifyCSS  = require('gulp-minify-css');
 
+var uglify = require('gulp-uglify');
+var sourcemaps = require('gulp-sourcemaps');
+var gutil = require('gulp-util');
+
 var vendors    = require('./../vendors');
 
 var appRoot = './src/'
 
-gulp.task('server:client', [], function (cb) {
-    var started = false;
-    nodemon({
-      script: appRoot + 'index.js',
-      stdin: false,
-      restartable: false,
-      exec: 'babel-node --stage 0',
-      ignore: ["node_modules/**",  appRoot + "app/**", "dist/**", "build/**"]
-    }).on('start', function() {
-      if (!started){
-        started = true;
-        cb();
-      }
-    })
-});
-
-gulp.task('server:dev', ['server:client'], function() {
-    bs({
-        proxy: "localhost:8080",
-        open: true
-    });
-
-    gulp.watch(appRoot + 'app/**/*.js', ['build:app'], bs.reload);
-    gulp.watch(appRoot + 'app/sass/**/*.scss', ['build:sass'], bs.reload);
-    gulp.watch('./build/vendors.js', ['build:vendors'], bs.reload);
+gulp.task('server', [], function() {
+    gulp.watch(appRoot + 'app/**/*.js', ['build:app']);
+    gulp.watch(appRoot + 'app/sass/**/*.scss', ['build:sass']);
+    gulp.watch('./build/vendors.js', ['build:vendors']);
 });
 
 gulp.task('build:vendors', function() {
@@ -57,8 +39,7 @@ gulp.task('build:vendors', function() {
     .bundle()
     .pipe(source('vendors.js'))
     .pipe(buffer())
-    .pipe(gulp.dest('./dist'))
-    .pipe(bs.stream());
+    .pipe(gulp.dest('./dist'));
 });
  
 gulp.task('build:sass', function () {
@@ -70,14 +51,14 @@ gulp.task('build:sass', function () {
       .pipe(sass().on('error', sass.logError))
       .pipe(minifyCSS())
       .pipe(rename('main.css'))
-      .pipe(gulp.dest('./dist'))
-      .pipe(bs.stream());
+      .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('build:app', function() {
   var b = browserify({
             insertGlobals: false,
-            detectGlobals: false
+            detectGlobals: false,
+            debug: true
           })
 
   _.forEach(vendors, function(vendor) {
@@ -91,12 +72,20 @@ gulp.task('build:app', function() {
           stage: 0
         }))
         .transform(envify({
+          _: 'purge',
           NODE_ENV: process.env.NODE_ENV,
           API_URL: (process.env.NODE_ENV === 'production') ? 'http://brianbland.me' : 'http://localhost:8080'
-        }))
+        }),{
+          // Needed to apply for node_modules
+          global: true
+        })
         .bundle()
         .pipe(source('app.js'))
         .pipe(buffer())
-        .pipe(gulp.dest('./dist'))
-        .pipe(bs.stream());
+        .pipe(sourcemaps.init({loadMaps: true}))
+            // Add transformation tasks to the pipeline here.
+            .pipe(uglify())
+            .on('error', gutil.log)
+        .pipe(sourcemaps.write('./'))        
+        .pipe(gulp.dest('./dist'));
 });

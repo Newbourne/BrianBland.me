@@ -1,5 +1,6 @@
 import Hapi from 'hapi'
 import path from 'path'
+import routes from './server/routes'
 
 var server = new Hapi.Server()
 server.connection({
@@ -13,22 +14,34 @@ server.connection({
     }
 })
 
-server.register([
-        {
-            register: require('./register.js'),
-            options: { }
-        }        
-    ],
-    { },
-    function (err) {
-        if (err) {
-            throw err
-        }
-
-        server.start(function () {
-            server.log('info', 'Server running at: ' + server.info.uri)
-            console.info('==> ✅  Server is listening')
-            console.info('==>   Go to ' + server.info.uri)
-        })
+server.register([{
+        // Required for static file/directory routes
+        register: require('inert')
+    },{
+        // Required for view templates
+        register:require('vision')
+    }],
+    function(err) {
+    if (err) {
+        throw err
     }
-)
+
+    server.views({
+        engines: {
+            hbs: require('handlebars')
+        },
+        relativeTo: __dirname,
+        path: './server/views',
+        layoutPath: './server/views/layouts',
+        layout: 'index',
+        isCached: process.env.NODE_ENV === 'production' ? true : false
+    })
+
+    server.route(routes)
+
+    server.start(function () {
+        server.log('info', 'Server running at: ' + server.info.uri)
+        console.info('==> ✅  Server is listening')
+        console.info('==>   Go to ' + server.info.uri)
+    })
+});

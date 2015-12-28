@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 
-import { Header, Content } from './../components'
+import { Header } from './../components'
 
 class App extends Component {
     constructor(props, context) {
@@ -11,10 +11,7 @@ class App extends Component {
         const { props: { children } } = this;
         return (
             <div>
-                <Header />
-                <Content>
-                    { children }
-                </Content>
+                { children }
             </div>
         )
     }

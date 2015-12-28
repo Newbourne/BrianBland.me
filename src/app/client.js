@@ -1,33 +1,23 @@
 import React from 'react'
-import { Provider } from 'react-redux'
+//import { Provider } from 'react-redux'
+import ReactDOM from 'react-dom'
 import { Router } from 'react-router'
-import BrowserHistory from 'react-router/lib/BrowserHistory'
-import request from 'superagent';
-import qs from 'qs';
+
+import createBrowserHistory from 'history/lib/createBrowserHistory'
 
 import routes from './routes'
-import createAPI from '../tools/request'
-import createRedux from '../tools/redux'
+import create from './store'
+//import injectTapEventPlugin from 'react-tap-event-plugin'
 
-const history = new BrowserHistory()
+//injectTapEventPlugin()
 
-const api = createAPI(
-  ({ method, headers = {}, pathname, query = {}, body = {} }) => {
-    var url = process.env.API_URL + pathname
-    return request(method, url)
-      .query(qs.stringify(query))
-      .set(headers)
-      .send(body)
-  }
-);
+const store = create({})
 
-
-const initialState = window.__APP_STATE__
-const store = createRedux(api, initialState)
-
-React.render(
-  <Provider store={store}>
-    {() => <Router routes={routes} {...{ history }} />}
-  </Provider>,
-  document.getElementById('app')
+const history = createBrowserHistory()
+	// <Provider store={store}>
+ //    	{() => <Router routes={routes} {...{ history }} />}
+ //  	</Provider>,
+ReactDOM.render(
+	<Router routes={routes} {...{ history }} />,
+  	document.getElementById('app')
 )
