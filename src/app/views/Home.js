@@ -7,13 +7,13 @@ class Home extends Component {
 
     render() {
         return (
-            <div> What What? </div>
+            <div> What What? 222- </div>
         )
     }
 }
 
-Home.propTypes = {
-    store: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired
-}
+// Home.propTypes = {
+//     store: PropTypes.object.isRequired,
+//     actions: PropTypes.object.isRequired
+// }
 export default Home
