@@ -1,8 +1,8 @@
 @import './fonts.css';
 @import './normalize.css';
 
-$primary-color: rgba(115,187,214, 1);
-$flat-color: rgba(150, 150, 150, 1);
+$flat-color: #030303;
+$background-color: #d4d4d4;
 
 @font-face {
 	font-weight: normal;
@@ -11,6 +11,7 @@ $flat-color: rgba(150, 150, 150, 1);
 
 body {
     color: $flat-color;
+    background-color: $background-color;
     font-family: 'Oxygen', sans-serif;
     font-size: 1.0625em/1.47;
     font-weight: 700;
@@ -19,39 +20,62 @@ body {
     text-rendering: optimizeLegibility;
 }
 
-div {
-    display: block;
-}
-h1 {
-    display: block;
-    font-size: 1em;
-    line-height: 1;
+/* Progressive Enhancement Approach */
+/* Default styles are for max-width: 400px */
+.root {
     margin: 0;
-    font-weight: bold;    
+    padding: 0;
 }
-p {
-    display: block;
-    margin: 0;        
+.nav-container {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    align-content: center;
+    align-items: center;
+
+    -webkit-flex-flow: row wrap;
+    justify-content: space-around;    
+
+    position: fixed;
+    bottom: 0;
+    height: 40px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0.5em;
+
+    background: $background-color;
+    background: -webkit-linear-gradient(rgba(255,0,0,0), rgba(212,212,212,1), rgba(212,212,212,1));
+    background: -o-linear-gradient(rgba(255,0,0,0), rgba(212,212,212,1), rgba(212,212,212,1));
+    background: -moz-linear-gradient(rgba(255,0,0,0), rgba(212,212,212,1), rgba(212,212,212,1));
+    background: linear-gradient(rgba(255,0,0,0), rgba(212,212,212,1), rgba(212,212,212,1));
 }
-a, a:visited {
-    color: $primary-color;
-    text-decoration: none;
-    -webkit-transition: color .2s cubic-bezier(.4,0,.2,1);
-    transition: color .2s cubic-bezier(.4,0,.2,1);
+.nav-item {
+    width: 25px;
+    height: 25px;
+    margin-top: 25px;
+    background-color: red;
 }
-a:hover {
-    color: $flat-color;
+.content {
+    padding: 0.5em;
+    margin-bottom: 40px;
+}
+.identity {
+    font-size: 0.7em;
+    text-align: right;
+    padding: 0.5em;
 }
 
-@media (min-width: 420px) {
-
-}
-@media (min-width: 570px) {
-
-}
-@media (min-width: 800px) {
-
-}
-@media screen and (min-width: 1000px) {
-
+@media (min-width: 640px) and (max-width: 799px) {
+    .nav-container {
+        height: 60px;
+    }
+    .nav-item {
+        width: 35px;
+        height: 35px;
+        margin-top: 35px;
+        background-color: red;        
+    }
 }

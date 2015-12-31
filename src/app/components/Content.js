@@ -1,8 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 
-import { Header } from './../components'
-
-class App extends Component {
+export default class Content extends Component {
     constructor(props, context) {
         super(props, context)
     }
@@ -10,11 +8,13 @@ class App extends Component {
     render() {
         const { props: { children } } = this;
         return (
-            <div>
+            <div className='content'>
                 { children }
             </div>
         )
     }
 }
 
-export default App
+Content.propTypes = {
+    children: PropTypes.any
+}
