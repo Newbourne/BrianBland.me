@@ -2,12 +2,8 @@
 @import './normalize.css';
 
 $flat-color: #030303;
-$background-color: #d4d4d4;
-
-@font-face {
-	font-weight: normal;
-	font-style: normal;
-}
+$accent-color: rgba(21,132,210, 1);
+$background-color: rgba(212,212,212,1);
 
 body {
     color: $flat-color;
@@ -41,41 +37,104 @@ body {
 
     position: fixed;
     bottom: 0;
-    height: 40px;
+    height: 50px;
     width: 100%;
     margin: 0 auto;
-    padding: 0.5em;
-
+    padding-top: 1em;
+    
     background: $background-color;
-    background: -webkit-linear-gradient(rgba(255,0,0,0), rgba(212,212,212,1), rgba(212,212,212,1));
-    background: -o-linear-gradient(rgba(255,0,0,0), rgba(212,212,212,1), rgba(212,212,212,1));
-    background: -moz-linear-gradient(rgba(255,0,0,0), rgba(212,212,212,1), rgba(212,212,212,1));
-    background: linear-gradient(rgba(255,0,0,0), rgba(212,212,212,1), rgba(212,212,212,1));
+    background: -webkit-linear-gradient(rgba(255,0,0,0), $background-color, $background-color);
+    background: -o-linear-gradient(rgba(255,0,0,0), $background-color, $background-color);
+    background: -moz-linear-gradient(rgba(255,0,0,0), $background-color, $background-color);
+    background: linear-gradient(rgba(255,0,0,0), $background-color, $background-color);
 }
 .nav-item {
-    width: 25px;
-    height: 25px;
-    margin-top: 25px;
-    background-color: red;
+    width: 40px;
+    height: 40px;
+    margin-top: 15px;
+    margin-bottom: 2px;
+}
+.b-icon {
+    transform: scale(0.6) translate(0, -20px);
+    fill:none;
+    stroke:#231f20;
+    stroke-miterlimit:10;
+    stroke-width:80px;
+    .b-base, .b-curves {
+        transform: translate(-200px, 0px);
+    }
+}
+.b-icon:hover {
+    stroke: $accent-color;
 }
 .content {
     padding: 0.5em;
-    margin-bottom: 40px;
+    margin: 0 auto;
+    margin-bottom: 50px;
 }
 .identity {
     font-size: 0.7em;
     text-align: right;
     padding: 0.5em;
+    a, a:visited {
+        color: $flat-color;
+        text-decoration: none;
+    }
+    a:hover {
+        color: $accent-color;
+    }
 }
 
 @media (min-width: 640px) and (max-width: 799px) {
     .nav-container {
-        height: 60px;
+        height: 80px;
     }
     .nav-item {
-        width: 35px;
-        height: 35px;
-        margin-top: 35px;
-        background-color: red;        
+        width: 40px;
+        height: 50px;
+        margin-top: 30px;
     }
+    .b-icon {
+        transform: scale(0.75) translate(0, -5px);
+    }
+    .content {
+        width: 640px;
+        margin-bottom: 80px;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 1049px) {
+    .nav-container {
+        height: 100px;
+    }
+    .nav-item {
+        width: 50px;
+        height: 70px;
+        margin-top: 35px;
+    }
+    .b-icon {
+        transform: scale(0.9) translate(0, -2px);
+    }
+    .content {
+        width: 750px;
+        margin-bottom: 100px;
+    }    
+}
+
+@media (min-width: 1050px) { //and (max-width: 1199px)
+    .nav-container {
+        height: 100px;
+    }
+    .nav-item {
+        width: 50px;
+        height: 70px;
+        margin-top: 35px;
+    }
+    .b-icon {
+        transform: scale(0.9) translate(0, -2px);
+    }
+    .content {
+        width: 950px;
+        margin-bottom: 100px;
+    }    
 }

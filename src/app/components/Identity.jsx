@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react'
+import { Link } from 'react-router'
 
 export default class Identity extends Component {
     constructor(props, context) {
@@ -8,7 +9,7 @@ export default class Identity extends Component {
     render() {
         return (
             <div className='identity'>
-                Brian Bland
+                <Link to='/me'>Brian Bland</Link>
             </div>
         )
     }

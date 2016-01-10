@@ -1,6 +1,8 @@
 import { createStore, applyMiddleware } from 'redux'
-import { api, API_INVOKER } from './API'
-import reducer from './reducers'
+import { combineReducers } from 'redux'
+import { api, API_INVOKER } from './API.jsx'
+import { ErrorReducer, EntryReducer, EntryListReducer, AboutMeReducer } from './reducers/index.jsx'
+
 /* eslint no-console: 0 */
 
 const logger = store => next => action => {
@@ -14,10 +16,8 @@ const logger = store => next => action => {
     //     }
     //     console.group(type)
     //     console.log('dispatching', action)
-
     //     let result = next(action)
     //     console.log('next state', store.getState())
-
     //     console.groupEnd(type)
     //     return result
     // }
@@ -26,17 +26,18 @@ const logger = store => next => action => {
     //}
 }
 
-function callApi(endpoint, data) {
-    return api(endpoint, data)
+function callApi(endpoint, data, format) {
+    return api(endpoint, data, format)
 }
 
+/* Visit later for cleanup */
 const api_middleware = store => next => action => {
     const callAPI = action[ API_INVOKER ]
     if (typeof callAPI === 'undefined') {
         return next(action)
     }
 
-    const { types, endpoint } = callAPI
+    const { types, endpoint, format } = callAPI
     let { data } = callAPI
 
     if (typeof endpoint !== 'string') {
@@ -61,22 +62,31 @@ const api_middleware = store => next => action => {
     /* ???? */
     next(actionWith({ type: requestType }))
 
-    return callApi(endpoint, data)
-        .then(
-            response => next(actionWith({
-              response,
-              type: successType
-            })),
-            error => next(actionWith({
-              type: failureType,
-              error: error.message || 'Something bad happened'
-            })
-        )
-    )
+    return callApi(endpoint, data, format)
+        .then(function(response){
+            next(actionWith({
+                response,
+                type: successType
+            }))
+        })
+        .catch(function(error){
+            next(actionWith({
+                type: failureType,
+                 error: error.message || 'Something bad happened'
+            }))
+        })        
 }
 
-export default function create(initialState) {
+export default function create(initialState, routeReducer) {
     const store = applyMiddleware(logger, api_middleware)(createStore)
+    
+    var reducer = combineReducers(Object.assign({}, {
+        ErrorReducer,
+        EntryReducer,
+        EntryListReducer,
+        AboutMeReducer
+    }, { routing: routeReducer }))
+    
     var finalStore = store(reducer, initialState)
     return finalStore
 }

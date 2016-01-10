@@ -7,13 +7,12 @@ module.exports = [
 	{ file: 'redux', expose: 'redux' },
 	{ file: 'redux-thunk', expose: 'redux-thunk' },
 	{ file: 'redux-promise', expose: 'redux-promise' },
+    { file: 'redux-simple-router', expose: 'redux-simple-router' },
 	{ file: 'babel/polyfill', expose: 'babel/polyfill' },
 	{ file: 'babel-runtime/core-js', expose: 'babel-runtime/core-js' },
 	{ file: 'lodash', expose: 'lodash' },
 	{ file: 'react-tap-event-plugin', expose: 'react-tap-event-plugin' },
 	{ file: 'material-ui', expose: 'material-ui' },
-	{ file: 'history', expose: 'history' },
-	{ file: 'superagent', expose: 'superagent' }
+	{ file: 'superagent', expose: 'superagent' },
+    { file: 'marked', expose: 'marked' }
 ];
-
-//{ file: 'paper', expose: 'paper' },

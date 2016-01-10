@@ -36,6 +36,9 @@ gulp.task('build:vendors', function() {
     .bundle()
     .pipe(source('vendors.js'))
     .pipe(buffer())
+    .pipe(sourcemaps.init())
+    .pipe(uglify())
+    .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./dist'))
     .pipe(bs.stream());
 });
@@ -60,6 +63,7 @@ gulp.task('build:sync', function() {
   });
 
   gulp.watch(appRoot + 'app/**/*.js', ['build:app'], bs.reload);
+  gulp.watch(appRoot + 'app/**/*.jsx', ['build:app'], bs.reload);
   gulp.watch(appRoot + 'app/sass/**/*.scss', ['build:sass'], bs.reload);
   gulp.watch('./build/vendors.js', ['build:vendors'], bs.reload);
 
@@ -73,7 +77,6 @@ gulp.task('build:sync', function() {
   }).on('start', function() {
       if (!started){
         started = true;
-        cb();
       }
     })
 })
@@ -104,7 +107,7 @@ gulp.task('build:app', function() {
     b.external(vendor.file)
   })
   
-  b.add(appRoot + 'app/index.js');
+  b.add(appRoot + 'app/index.jsx');
 
   return b
         .transform(babelify.configure({
@@ -115,16 +118,14 @@ gulp.task('build:app', function() {
           NODE_ENV: process.env.NODE_ENV,
           API_URL: process.env.API_URL
         }),{
-          // Needed to apply for node_modules
           global: true
         })
         .bundle()
         .pipe(source('app.js'))
         .pipe(buffer())
-        .pipe(sourcemaps.init({loadMaps: true}))
-            // Add transformation tasks to the pipeline here.
-            .pipe(uglify())
-            .on('error', gutil.log)
+        .pipe(sourcemaps.init())
+        //.pipe(concat("app.js"))
+        .pipe(uglify())
         .pipe(sourcemaps.write('./'))        
         .pipe(gulp.dest('./dist'))
         .pipe(bs.stream());
