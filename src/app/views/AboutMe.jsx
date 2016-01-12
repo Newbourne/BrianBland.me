@@ -4,19 +4,13 @@ import { connect } from 'react-redux'
 
 import * as AboutMeActions from './../actions/AboutMeActions.jsx'
 
-// @connect(
-//     state => ({
-//         aboutMeEntry: state.AboutMeReducer.aboutMeEntry
-//     }), {
-//         // ?
-// })
 class AboutMe extends Component {
     constructor(props, context) {
         super(props, context)
     }
     componentWillMount() {
-        const { dispatch } = this.props
-        fetch(dispatch)
+        const { dispatch, actions } = this.props
+        actions.getAboutMeEntry()
     }
     dataFn() {
         const { aboutMeEntry } = this.props
@@ -30,13 +24,10 @@ class AboutMe extends Component {
             </div>
         )
     }
-}
-AboutMe.propTypes = {
-    dispatch: PropTypes.func.isRequired
-}
-function fetch(dispatch) {
-    const actions = bindActionCreators(AboutMeActions, dispatch)
-    actions.getAboutMeEntry()
+    
+    static fetch() {
+        return AboutMeActions.getAboutMeEntry()
+    }
 }
 function mapStateToProps(state) {
   return {
@@ -44,13 +35,13 @@ function mapStateToProps(state) {
   }
 }
 
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     actions: bindActionCreators(TodoActions, dispatch)
-//   }
-// }
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(AboutMeActions, dispatch)
+  }
+}
 
 export default connect(
   mapStateToProps,
-  //mapDispatchToProps
+  mapDispatchToProps
 )(AboutMe)

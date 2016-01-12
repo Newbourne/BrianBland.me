@@ -16,8 +16,6 @@ const store = create(state, routeReducer)
 
 syncReduxAndRouter(browserHistory, store)
 
-import { Root } from './views/Root.jsx'
-
 ReactDOM.render(
     <Provider store={store}>
         <Router

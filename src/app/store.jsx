@@ -1,29 +1,29 @@
 import { createStore, applyMiddleware } from 'redux'
 import { combineReducers } from 'redux'
 import { api, API_INVOKER } from './API.jsx'
-import { ErrorReducer, EntryReducer, EntryListReducer, AboutMeReducer } from './reducers/index.jsx'
+import * as reducers from './reducers/index.jsx'
 
 /* eslint no-console: 0 */
 
 const logger = store => next => action => {
-    // if (process.env.NODE_ENV !== 'production') {
-    //     let type = action[ API_INVOKER ]
-    //     if (typeof type === 'undefined') {
-    //         type = action.type
-    //     }
-    //     else {
-    //         type = type.types[ 0 ]
-    //     }
-    //     console.group(type)
-    //     console.log('dispatching', action)
-    //     let result = next(action)
-    //     console.log('next state', store.getState())
-    //     console.groupEnd(type)
-    //     return result
-    // }
-    // else {
+    if (process.env.NODE_ENV !== 'production' && process.env.CLIENT) {
+        let type = action[ API_INVOKER ]
+        if (typeof type === 'undefined') {
+            type = action.type
+        }
+        else {
+            type = type.types[ 0 ]
+        }
+        console.group(type)
+        console.log('dispatching', action)
+        let result = next(action)
+        console.log('next state', store.getState())
+        console.groupEnd(type)
+        return result
+    }
+    else {
         return next(action)
-    //}
+    }
 }
 
 function callApi(endpoint, data, format) {
@@ -80,12 +80,7 @@ const api_middleware = store => next => action => {
 export default function create(initialState, routeReducer) {
     const store = applyMiddleware(logger, api_middleware)(createStore)
     
-    var reducer = combineReducers(Object.assign({}, {
-        ErrorReducer,
-        EntryReducer,
-        EntryListReducer,
-        AboutMeReducer
-    }, { routing: routeReducer }))
+    var reducer = combineReducers(Object.assign({}, reducers, { routing: routeReducer }))
     
     var finalStore = store(reducer, initialState)
     return finalStore

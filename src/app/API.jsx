@@ -1,4 +1,5 @@
 import request from 'superagent'
+import marked from 'marked'
 
 export const API_INVOKER = Symbol('Invoke API')
 
@@ -32,7 +33,7 @@ export function api(route, queryObj, format) {
                             resolve(res.body)
                         }
                         else {
-                            resolve(res.text)
+                            resolve(marked(res.text))
                         }
                     }
                 })

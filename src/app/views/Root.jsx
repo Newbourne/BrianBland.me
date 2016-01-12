@@ -20,8 +20,4 @@ class Root extends Component {
     }
 }
 
-Root.contextTypes = {
-    router: PropTypes.object.isRequired
-}
-
 export default Root

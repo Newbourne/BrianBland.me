@@ -1,3 +1,5 @@
+import { handleActions } from 'redux-actions'
+import marked from 'marked'
 import * as C from './../constants/index.jsx'
 
 const initialState = {
@@ -5,7 +7,7 @@ const initialState = {
     isErrorOpen: false
 }
 
-const actionsMap = {
+export default handleActions({
     [ C.API_ERROR ]: (state, action) => ({
         isErrorOpen: true,
         errorMsg: action.error
@@ -14,15 +16,4 @@ const actionsMap = {
         isErrorOpen: false,
         errorMsg: ''
     })
-}
-
-export default function ErrorReducer(state = initialState, action) {
-    const reduceFn = actionsMap[ action.type ]
-
-    if (!reduceFn) {
-        return state
-    }
-
-    const newState = Object.assign({ }, state, reduceFn(state, action))
-    return newState
-}
+}, initialState)

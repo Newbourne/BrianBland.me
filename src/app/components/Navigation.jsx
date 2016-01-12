@@ -9,7 +9,9 @@ export default class Navigation extends Component {
         }
     }
     goHome() {
-        this.context.router.push('/')
+        // Send actions for navigation
+        // Don't use context 
+        // this.context.router.push('/')
     }
     render() {
         return (
@@ -27,9 +29,4 @@ export default class Navigation extends Component {
         )
     }
 }
-
-Navigation.contextTypes = {
-    router: PropTypes.object.isRequired
-}
-
 Navigation.propTypes = { }

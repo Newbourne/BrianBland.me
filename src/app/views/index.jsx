@@ -1,3 +1,4 @@
+export { default as App } from './App.jsx'
 export { default as Root } from './Root.jsx'
 export { default as Home } from './Home.jsx'
 export { default as AboutMe } from './AboutMe.jsx'

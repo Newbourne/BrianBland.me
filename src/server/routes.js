@@ -28,17 +28,7 @@ export default [
         path: '/api/temp',
         config: {
             handler: function(req, rep) {
-                rep(`
-                # TEMP TITLE
-                
-                ### Temp Section
-                
-                Sample Information This is on the route. Temp API Data
-                
-                ### Temp Section
-                
-                Data...
-                `)
+                rep('# TEMP TITLE \n ### Temp Section \n Temp Data, blah blah blah')
             }
         }
     },
