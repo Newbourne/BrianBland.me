@@ -3,11 +3,11 @@ import marked from 'marked'
 import * as C from './../constants/index.jsx'
 
 const initialState = {
-    entry: ''
+    entry: null
 }
 
 export default handleActions({
     [ C.GET_ENTRY_SUCCESS ]: (state, action) => ({
-        entry: marked(action.response)
+        entry: action.response
     })
 }, initialState)

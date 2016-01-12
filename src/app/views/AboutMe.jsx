@@ -30,15 +30,15 @@ class AboutMe extends Component {
     }
 }
 function mapStateToProps(state) {
-  return {
-    aboutMeEntry: state.AboutMeReducer.aboutMeEntry
-  }
+    return {
+        aboutMeEntry: state.AboutMeReducer.aboutMeEntry
+    }
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(AboutMeActions, dispatch)
-  }
+    return {
+        actions: bindActionCreators(AboutMeActions, dispatch)
+    }
 }
 
 export default connect(

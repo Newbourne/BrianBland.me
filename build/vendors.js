@@ -14,5 +14,6 @@ module.exports = [
 	{ file: 'react-tap-event-plugin', expose: 'react-tap-event-plugin' },
 	{ file: 'material-ui', expose: 'material-ui' },
 	{ file: 'superagent', expose: 'superagent' },
-    { file: 'marked', expose: 'marked' }
+    { file: 'marked', expose: 'marked' },
+    { file: 'serialize-javascript', expose: 'serialize-javascript' }
 ];

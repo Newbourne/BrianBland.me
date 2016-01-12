@@ -4,32 +4,44 @@ import { connect } from 'react-redux'
 
 import * as EntryActions from './../actions/EntryActions.jsx'
 
-@connect(
-    state => ({
-        entry: state.EntryReducer.entry
-    }), {
-        // What is this for? What does it do?
-})
-export default class Entry extends Component {
+class Entry extends Component {
     constructor(props, context) {
         super(props, context)
     }
     componentWillMount() {
-        const { dispatch, params } = this.props
-        fetch(dispatch, params)
+        const { dispatch, params, actions } = this.props
+        actions.getEntry(params.key)
+    }
+    dataFn() {
+        const { entry } = this.props
+        return {
+            __html: entry
+        }
     }
     render() {
         return (
-            <div>
-                Entry
+            <div dangerouslySetInnerHTML={ this.dataFn() }>
             </div>
         )
     }
+    static fetch(id) {
+        return EntryActions.getEntry(id)
+    }
 }
-Entry.propTypes = {
-    dispatch: PropTypes.func.isRequired
+
+function mapStateToProps(state) {
+    return {
+        entry: state.EntryReducer.entry
+    }
 }
-function fetch(dispatch, params) {
-    const actions = bindActionCreators(EntryActions, dispatch)
-    actions.getEntry(params.key)
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(EntryActions, dispatch)
+    }
 }
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Entry)

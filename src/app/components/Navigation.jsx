@@ -1,7 +1,9 @@
 import React, { PropTypes, Component } from 'react'
 import { Link, browserHistory } from 'react-router'
+import { pushPath } from 'redux-simple-router'
+import { connect } from 'react-redux'
 
-export default class Navigation extends Component {
+class Navigation extends Component {
     constructor(props, context) {
         super(props, context)
         this.state = {
@@ -9,9 +11,8 @@ export default class Navigation extends Component {
         }
     }
     goHome() {
-        // Send actions for navigation
-        // Don't use context 
-        // this.context.router.push('/')
+        const { dispatch } = this.props
+        dispatch(pushPath('/'))
     }
     render() {
         return (
@@ -29,4 +30,8 @@ export default class Navigation extends Component {
         )
     }
 }
-Navigation.propTypes = { }
+Navigation.propTypes = {
+    dispatch: PropTypes.func.isRequired
+}
+
+export default connect()(Navigation)

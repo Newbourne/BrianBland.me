@@ -46,13 +46,14 @@ export default [
         path: '/api/{path*}',
         config: {
             handler: function(req, rep) {
-                rep.proxy({
-                    host: '',
-                    port: 80,
-                    protocol: 'http',
-                    passThrough: true,
-                    xforward: true
-                });
+                rep('### ' + req.url.path)
+                // rep.proxy({
+                //     host: '',
+                //     port: 80,
+                //     protocol: 'http',
+                //     passThrough: true,
+                //     xforward: true
+                // });
             }
         }
     },  

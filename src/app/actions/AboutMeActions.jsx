@@ -10,7 +10,7 @@ export function getAboutMeEntry() {
                 C.API_ERROR
             ],
             format: 'markdown',
-            endpoint: `temp` /* Get Key from HASTE API */
+            endpoint: 'me'
         }
     }
 }

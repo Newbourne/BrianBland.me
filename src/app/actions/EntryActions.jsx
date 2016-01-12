@@ -10,7 +10,7 @@ export function getLatestEntries() {
                 C.API_ERROR
             ],
             format: 'json',
-            endpoint: `tempJson` /* Get Key from HASTE API */
+            endpoint: `latest`
         }
     }
 }
@@ -24,7 +24,7 @@ export function getEntry(key) {
                 C.API_ERROR
             ],
             format: 'markdown',
-            endpoint: `temp` /* Get Key from HASTE API */
+            endpoint: key
         }
     }
 }

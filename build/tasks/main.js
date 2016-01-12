@@ -10,7 +10,7 @@ var envify     = require('envify/custom');
 var nodemon    = require('gulp-nodemon');
 var sass       = require('gulp-sass');
 var rename     = require('gulp-rename');
-var minifyCSS  = require('gulp-minify-css');
+var cssNano  = require('gulp-cssnano');
 
 var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
@@ -50,7 +50,7 @@ gulp.task('build:sass', function () {
         includePaths : [appRoot + 'app/sass/']
       }))
       .pipe(sass().on('error', sass.logError))
-      .pipe(minifyCSS())
+      .pipe(cssNano())
       .pipe(rename('main.css'))
       .pipe(gulp.dest('./dist'))
       .pipe(bs.stream());
