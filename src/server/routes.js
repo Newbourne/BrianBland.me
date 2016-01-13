@@ -1,16 +1,15 @@
 import path from 'path'
 import render from './render'
 
-var favIconPath = path.join(__dirname, './../../data/favicon.ico')
-
 export default [
     {
         method: '*',
-        path: '/favicon.ico',
-        config: {
-            handler: function (req, rep) {
-                rep.file(favIconPath)
-            }
+        path: '/icon/{param*}',
+        handler: {
+			directory: {
+				path: path.normalize(__dirname + './../../icon/'),
+				listing: true
+			}
         }
     },
 	{
@@ -22,31 +21,13 @@ export default [
 				listing: true
 			}
 		}
-	},
-    {
-        method: '*',
-        path: '/api/temp',
-        config: {
-            handler: function(req, rep) {
-                rep('# TEMP TITLE \n ### Temp Section \n Temp Data, blah blah blah')
-            }
-        }
-    },
-    {
-        method: '*',
-        path: '/api/tempJson',
-        config: {
-            handler: function(req, rep) {
-                rep({dummy:true})
-            }
-        }
-    },      
+	},   
     {
         method: '*',
         path: '/api/{path*}',
         config: {
             handler: function(req, rep) {
-                rep('### ' + req.url.path)
+                rep('')
                 // rep.proxy({
                 //     host: '',
                 //     port: 80,
@@ -62,7 +43,7 @@ export default [
         path: '/{path*}',
         config: {
             handler: function (req, rep) {   
-                render(req, rep, 'default', {})
+                render(req, rep, 'default')
             }
         }
     }

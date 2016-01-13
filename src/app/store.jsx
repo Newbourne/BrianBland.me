@@ -3,6 +3,8 @@ import { combineReducers } from 'redux'
 import { api, API_INVOKER } from './API.jsx'
 import * as reducers from './reducers/index.jsx'
 
+import { pushPath } from 'redux-simple-router'
+
 /* eslint no-console: 0 */
 
 const logger = store => next => action => {
@@ -26,8 +28,8 @@ const logger = store => next => action => {
     }
 }
 
-function callApi(endpoint, data, format) {
-    return api(endpoint, data, format)
+function callApi(endpoint, data) {
+    return api(endpoint, data)
 }
 
 /* Visit later for cleanup */
@@ -37,7 +39,7 @@ const api_middleware = store => next => action => {
         return next(action)
     }
 
-    const { types, endpoint, format } = callAPI
+    const { types, endpoint } = callAPI
     let { data } = callAPI
 
     if (typeof endpoint !== 'string') {
@@ -62,7 +64,7 @@ const api_middleware = store => next => action => {
     /* ???? */
     next(actionWith({ type: requestType }))
 
-    return callApi(endpoint, data, format)
+    return callApi(endpoint, data)
         .then(function(response){
             next(actionWith({
                 response,
@@ -70,10 +72,19 @@ const api_middleware = store => next => action => {
             }))
         })
         .catch(function(error){
-            next(actionWith({
-                type: failureType,
-                 error: error.message || 'Something bad happened'
-            }))
+            switch(error.status) {
+                case 404:
+                    next(pushPath('/not-found'))
+                break;
+                
+                default:
+                    next(pushPath('/error'))
+                    next(actionWith({
+                        type: failureType,
+                        error
+                    }))                    
+                break;
+            }
         })        
 }
 

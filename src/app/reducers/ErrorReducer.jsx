@@ -3,17 +3,17 @@ import marked from 'marked'
 import * as C from './../constants/index.jsx'
 
 const initialState = {
-    errorMsg: '',
+    error: null,
     isErrorOpen: false
 }
 
 export default handleActions({
     [ C.API_ERROR ]: (state, action) => ({
         isErrorOpen: true,
-        errorMsg: action.error
+        error: action.error
     }),
     [ C.ERROR_RESET ]: (state, action) => ({
         isErrorOpen: false,
-        errorMsg: ''
+        errorMsg: null
     })
 }, initialState)

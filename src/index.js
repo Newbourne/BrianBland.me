@@ -1,22 +1,21 @@
 import Hapi from 'hapi'
 import routes from './server/routes'
-import commandLineArgs from 'command-line-args'
 
-var cli = commandLineArgs([
-    { name: 'production', alias: 'p', type: Boolean }
-])
+console.log('server ', process.argv)
+var devFile = require('./../app-secrets-dev.json');
+var prodFile = require('./../app-secrets-prod.json');
 
-var options = cli.parse()
-
-if (!options.production) {
-    process.env.NODE_ENV = 'development'
-    process.env.API_URL = 'http://localhost:8080'
-}
-else {
-    process.env.NODE_ENV = 'production'
-    process.env.API_URL = 'http://brianbland.me'
+var variables = {}
+if (process.argv.length >= 3) {
+    variables = prodFile;
+} else {
+    variables = devFile;
 }
 
+process.env.NODE_ENV = variables.env
+process.env.API_URL = variables.api.url
+process.env.API_PORT = variables.api.port
+    
 var server = new Hapi.Server()
 
 server.connection({

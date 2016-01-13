@@ -9,7 +9,6 @@ export function getLatestEntries() {
                 C.GET_LATEST_ENTRIES_SUCCESS,
                 C.API_ERROR
             ],
-            format: 'json',
             endpoint: `latest`
         }
     }
@@ -23,7 +22,6 @@ export function getEntry(key) {
                 C.GET_ENTRY_SUCCESS,
                 C.API_ERROR
             ],
-            format: 'markdown',
             endpoint: key
         }
     }

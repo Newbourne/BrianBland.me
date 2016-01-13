@@ -43,7 +43,7 @@ var all = (promises, store) => {
     return ready.then(function () { return accumulator; })
 }
 
-export default function render (req, rep, layout, { payload }) {
+export default function render (req, rep, layout) {
     const title = 'B.BLAND'
     
     /* Universal Implementation */
@@ -75,6 +75,7 @@ export default function render (req, rep, layout, { payload }) {
                })
                .catch((error) => {
                    console.log('promise error ', error)
+                   rep.view(layout, { title, body, state })
                })
         } else {
             rep.status(404).send('Not found')

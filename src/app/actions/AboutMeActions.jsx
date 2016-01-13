@@ -9,7 +9,6 @@ export function getAboutMeEntry() {
                 C.GET_ABOUTME_SUCCESS,
                 C.API_ERROR
             ],
-            format: 'markdown',
             endpoint: 'me'
         }
     }
