@@ -71,21 +71,28 @@ const api_middleware = store => next => action => {
                 type: successType
             }))
         })
-        .catch(function(error){
-            switch(error.status) {
-                case 404:
+        .catch(function(error) {
+            if (error && error.status) {
+                if (error.status === 404) {
                     next(pushPath('/not-found'))
-                break;
-                
-                default:
+                } else {
                     next(pushPath('/error'))
+                    
                     next(actionWith({
                         type: failureType,
-                        error
-                    }))                    
-                break;
+                        error: error.message
+                    }))                      
+                }          
             }
-        })        
+            else {
+                next(pushPath('/error'))
+                
+                next(actionWith({
+                    type: failureType,
+                    error: JSON.stringify(error)
+                }))                   
+            }
+        })
 }
 
 export default function create(initialState, routeReducer) {

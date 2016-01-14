@@ -13,6 +13,8 @@ export default class NotFound extends Component {
         return (
             <div>
                 <h1>Not Found!</h1>
+                <p>My apologies, the resource you're looking
+                for cannot be found.</p>
             </div>
         )
     }

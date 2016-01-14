@@ -1,7 +1,6 @@
 import Hapi from 'hapi'
 import routes from './server/routes'
 
-console.log('server ', process.argv)
 var devFile = require('./../app-secrets-dev.json');
 var prodFile = require('./../app-secrets-prod.json');
 

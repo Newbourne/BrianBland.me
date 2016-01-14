@@ -20,19 +20,24 @@ var gutil = require('gulp-util');
 var vendors    = require('./../vendors');
 var appRoot = path.normalize(__dirname + './../../src/')
 
-gulp.task('hydrate-config', function(){
-    var devFile = require('./../../app-secrets-dev.json');
-    var prodFile = require('./../../app-secrets-prod.json');
-    
-    var variables = {}
-    if (process.argv.length >= 4) {
-        variables = prodFile;
-    } else {
-        variables = devFile;
-    }
+gulp.task('config-dev', function(){
+    var variables = require('./../../app-secrets-dev.json');
     
     process.env.NODE_ENV = variables.env
     process.env.API_URL = variables.api.url
+    process.env.API_PORT = variables.api.port
+    process.env.API_PROXY_URL = variables.api.proxy.url
+    process.env.API_PROX_PORT = variables.api.proxy.port
+    
+    return
+})
+
+gulp.task('config-prod', function(){
+    var variables = require('./../../app-secrets-prod.json');
+    
+    process.env.NODE_ENV = variables.env
+    process.env.API_URL = variables.api.url
+    process.env.API_PORT = variables.api.port
     
     return
 })
@@ -71,15 +76,15 @@ gulp.task('build:sass', function () {
       .pipe(bs.stream());
 });
 
-gulp.task('build:sync', function() {
+gulp.task('build:sync', ['config-dev', 'build:app', 'build:sass', 'build:vendors'], function() {
   bs({
       proxy: "localhost:8080",
       open: true
   });
 
-  gulp.watch(appRoot + 'app/**/*.js', ['build:app'], bs.reload);
-  gulp.watch(appRoot + 'app/**/*.jsx', ['build:app'], bs.reload);
-  gulp.watch(appRoot + 'server/*.js', ['build:app'], bs.reload);
+  gulp.watch(appRoot + 'app/**/*.js', ['config-dev', 'build:app'], bs.reload);
+  gulp.watch(appRoot + 'app/**/*.jsx', ['config-dev', 'build:app'], bs.reload);
+  gulp.watch(appRoot + 'server/*.js', ['config-dev', 'build:app'], bs.reload);
   gulp.watch(appRoot + 'app/sass/**/*.scss', ['build:sass'], bs.reload);
   gulp.watch('./build/vendors.js', ['build:vendors'], bs.reload);
 

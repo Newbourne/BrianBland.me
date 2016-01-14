@@ -6,14 +6,14 @@
   "scripts": {
     "clean": "rimraf dist/*",
     "prebuild": "npm run clean -s",
-    "build": "gulp default --production",
+    "build": "gulp default:prod",
     "predev": "ps -ef | grep gulp | grep -v grep | awk '{print $2}' | xargs kill -9",
     "dev": "gulp build:sync",
-    "prod": "babel-node --stage 0 src/index.js --production",
+    "prod": "babel-node --stage 0 src/index.js",
     "test": "lab -T node_modules/lab-babel -t 90 -S -c -D -v",
     "lint": "eslint ./ || true",
     "babel": "babel --stage 0",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build:prod"
   },
   "browserify": {
     "transform": [

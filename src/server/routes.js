@@ -27,10 +27,11 @@ export default [
         path: '/api/{path*}',
         config: {
             handler: function(req, rep) {
-                rep('')
+                rep().code(404)
+                //rep('server proxy broken').code(500)
                 // rep.proxy({
-                //     host: '',
-                //     port: 80,
+                //     host: process.env.api.url,
+                //     port: process.env.api.port,
                 //     protocol: 'http',
                 //     passThrough: true,
                 //     xforward: true

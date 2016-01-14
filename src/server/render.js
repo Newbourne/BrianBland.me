@@ -50,11 +50,9 @@ export default function render (req, rep, layout) {
     /* Server-side Rendering */
     match({ routes, location: req.url.path }, (error, redirectLocation, renderProps) => {
         if (error) {
-            console.log('hit error')
-            rep.status(500).send(error.message)
+            throw new Error('hit error')
         } else if (redirectLocation) {
-            console.log('hit redirection')
-            rep.redirect(302, redirectLocation.pathname + redirectLocation.search)
+            throw new Error('hit redirection')
         } else if (renderProps) {
             let store = create({}, routeReducer)
             let body = ''
@@ -75,10 +73,10 @@ export default function render (req, rep, layout) {
                })
                .catch((error) => {
                    console.log('promise error ', error)
-                   rep.view(layout, { title, body, state })
+                   rep.view(layout, { title, state })
                })
         } else {
-            rep.status(404).send('Not found')
+            throw new Error('hit not found')
         }
     })
 }
