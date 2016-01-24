@@ -11,8 +11,7 @@
     "dev": "NODE_ENV=development gulp build:sync",
     "prod": "NODE_ENV=production node lib/server/index.js",
     "test": "lab -T node_modules/lab-babel -t 90 -S -c -D -v",
-    "lint": "eslint ./ || true",
-    "postinstall": "npm run build"
+    "lint": "eslint ./ || true"
   },
   "browserify": {
     "transform": [
