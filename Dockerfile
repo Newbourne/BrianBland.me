@@ -5,7 +5,6 @@ FROM ubuntu:latest
 RUN apt-get update
 RUN apt-get install -y build-essential curl
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.2/install.sh | bash
-RUN bash ~/.profile
 RUN . ~/.nvm/nvm.sh 
 RUN nvm install 5.5.0
 RUN nvm alias default 5.5.0
