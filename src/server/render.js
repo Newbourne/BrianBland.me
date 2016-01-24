@@ -3,7 +3,7 @@ import { renderToString } from 'react-dom/server'
 import { match, Router, RouterContext, browserHistory } from 'react-router'
 import { Provider } from 'react-redux'
 
-import { routeActions, routeReducer } from 'redux-simple-router'
+import { routeActions, routeReducer } from 'react-router-redux'
 
 import _ from 'lodash'
 import serialize from 'serialize-javascript'

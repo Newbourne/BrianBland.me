@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 import { Link, browserHistory } from 'react-router'
-import { routeActions } from 'redux-simple-router'
+import { routeActions } from 'react-router-redux'
 import { connect } from 'react-redux'
 
 class Navigation extends Component {

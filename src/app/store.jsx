@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import { api, API_INVOKER } from './API'
 import * as reducers from './reducers'
 
-import { routeActions } from 'redux-simple-router'
+import { routeActions } from 'react-router-redux'
 
 /* eslint no-console: 0 */
 const logger = store => next => action => {

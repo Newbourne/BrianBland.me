@@ -1,5 +1,4 @@
 import request from 'superagent'
-import marked from 'marked'
 import Remarkable from 'remarkable'
 var md = new Remarkable('commonmark');
 
