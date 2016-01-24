@@ -5,8 +5,9 @@ MAINTAINER Brian Bland <brian.bland@live.com>
 
 # Bundle app source
 
-# COPY . /src
-# WORKDIR /src
+RUN mkdir app
+COPY . /app
+WORKDIR /app
 
 RUN npm install -g gulp
 RUN npm install -g babel
