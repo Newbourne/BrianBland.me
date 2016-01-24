@@ -1,13 +1,15 @@
 import { handleActions } from 'redux-actions'
 import marked from 'marked'
-import * as C from './../constants/index.jsx'
+import * as C from './../constants'
 
 const initialState = {
-    entry: null
+    entry: null,
+    endpoint: null
 }
 
 export default handleActions({
     [ C.GET_ENTRY_SUCCESS ]: (state, action) => ({
-        entry: action.response
+        entry: action.response,
+        endpoint: action.endpoint
     })
 }, initialState)

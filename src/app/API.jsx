@@ -4,10 +4,10 @@ import marked from 'marked'
 export const API_INVOKER = Symbol('Invoke API')
 
 export function api(route, queryObj) {
-    var apiUrl = process.env.API_URL
+    var apiHost = process.env.API_HOST
     var apiPort = process.env.API_PORT
     
-    const url = `${apiUrl}:${apiPort}/api/${route}`
+    const url = `http://${apiHost}:${apiPort}/api/${route}`
     
     var req = new Promise(function (resolve, reject) {
             request
@@ -18,9 +18,15 @@ export function api(route, queryObj) {
                         reject(err)
                     } else {
                         // read res headers for format
-                        resolve(res.text)
-                        // resolve(res.body) json
-                        // resolve(marked(res.text)) markdown
+                        // look for markdown
+                        // default to json
+                        var contentType = res.header["content-type"]
+                        if (contentType && contentType == "text/markdown; charset=utf-8"){
+                            resolve(marked(res.text)) 
+                        }
+                        else {
+                            resolve(res.body) 
+                        }
                     }
                 })
         })

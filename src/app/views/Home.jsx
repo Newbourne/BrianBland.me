@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import * as EntryActions from './../actions/EntryActions.jsx'
+import * as EntryActions from './../actions/EntryActions'
 
 class Home extends Component {
     constructor(props, context) {

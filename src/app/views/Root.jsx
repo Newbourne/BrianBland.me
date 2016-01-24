@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react'
-import { Navigation, Identity, Content } from './../components/index.jsx'
+import { Navigation, Identity, Content } from './../components'
 
 class Root extends Component {
     constructor(props, context) {

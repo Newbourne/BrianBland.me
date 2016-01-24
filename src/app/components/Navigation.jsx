@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 import { Link, browserHistory } from 'react-router'
-import { pushPath } from 'redux-simple-router'
+import { routeActions } from 'redux-simple-router'
 import { connect } from 'react-redux'
 
 class Navigation extends Component {
@@ -12,7 +12,7 @@ class Navigation extends Component {
     }
     goHome() {
         const { dispatch } = this.props
-        dispatch(pushPath('/'))
+        dispatch(routeActions.push('/'))
     }
     render() {
         return (

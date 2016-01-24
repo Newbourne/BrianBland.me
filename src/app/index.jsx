@@ -1,2 +1,2 @@
-require('babel/polyfill')
-require('./client.jsx')
+require('babel-polyfill')
+require('./client')

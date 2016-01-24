@@ -1,6 +1,6 @@
 import React from 'react'
 import { Router, Route, Redirect, IndexRoute } from 'react-router'
-import { App, Root, Home, AboutMe, Entry, Error, NotFound } from './views/index.jsx'
+import { App, Root, Home, AboutMe, Entry, Error, NotFound } from './views'
 
 export default (
     <Route component={App}>

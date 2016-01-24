@@ -1,12 +1,11 @@
 import { createStore, applyMiddleware } from 'redux'
 import { combineReducers } from 'redux'
-import { api, API_INVOKER } from './API.jsx'
-import * as reducers from './reducers/index.jsx'
+import { api, API_INVOKER } from './API'
+import * as reducers from './reducers'
 
-import { pushPath } from 'redux-simple-router'
+import { routeActions } from 'redux-simple-router'
 
 /* eslint no-console: 0 */
-
 const logger = store => next => action => {
     if (process.env.NODE_ENV !== 'production' && process.env.CLIENT) {
         let type = action[ API_INVOKER ]
@@ -68,15 +67,16 @@ const api_middleware = store => next => action => {
         .then(function(response){
             next(actionWith({
                 response,
+                endpoint,
                 type: successType
             }))
         })
         .catch(function(error) {
             if (error && error.status) {
                 if (error.status === 404) {
-                    next(pushPath('/not-found'))
+                    next(routeActions.replace('/not-found'))
                 } else {
-                    next(pushPath('/error'))
+                    next(routeActions.replace('/error'))
                     
                     next(actionWith({
                         type: failureType,
@@ -85,21 +85,28 @@ const api_middleware = store => next => action => {
                 }          
             }
             else {
-                next(pushPath('/error'))
+                next(routeActions.replace('/error'))
                 
                 next(actionWith({
                     type: failureType,
                     error: JSON.stringify(error)
-                }))                   
+                }))
             }
         })
 }
 
-export default function create(initialState, routeReducer) {
-    const store = applyMiddleware(logger, api_middleware)(createStore)
+export default function create(initialState, historyMiddleware, routeReducer) {
+    const reducer = combineReducers(Object.assign({}, reducers, { 
+        routing: routeReducer 
+    }))
     
-    var reducer = combineReducers(Object.assign({}, reducers, { routing: routeReducer }))
+    let store
+    if (historyMiddleware) {
+        store = applyMiddleware(logger, api_middleware, historyMiddleware)(createStore)
+    } else {
+        store = applyMiddleware(logger, api_middleware)(createStore)
+    }
     
     var finalStore = store(reducer, initialState)
-    return finalStore
+    return finalStore        
 }

@@ -2,15 +2,17 @@ import React, { PropTypes, Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import * as AboutMeActions from './../actions/AboutMeActions.jsx'
+import * as AboutMeActions from './../actions/AboutMeActions'
 
 class AboutMe extends Component {
     constructor(props, context) {
         super(props, context)
     }
     componentWillMount() {
-        const { dispatch, actions } = this.props
-        actions.getAboutMeEntry()
+        const { dispatch, aboutMeEntry, actions } = this.props
+        if (!aboutMeEntry || aboutMeEntry.length == 0) {
+            actions.getAboutMeEntry()
+        }
     }
     dataFn() {
         const { aboutMeEntry } = this.props

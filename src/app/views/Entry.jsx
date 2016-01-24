@@ -2,15 +2,17 @@ import React, { PropTypes, Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import * as EntryActions from './../actions/EntryActions.jsx'
+import * as EntryActions from './../actions/EntryActions'
 
 class Entry extends Component {
     constructor(props, context) {
         super(props, context)
     }
     componentWillMount() {
-        const { dispatch, params, actions } = this.props
-        actions.getEntry(params.key)
+        const { dispatch, endpoint, params, actions } = this.props
+        if (params.key != endpoint) {
+            actions.getEntry(params.key)
+        }
     }
     dataFn() {
         const { entry } = this.props
@@ -31,7 +33,8 @@ class Entry extends Component {
 
 function mapStateToProps(state) {
     return {
-        entry: state.EntryReducer.entry
+        entry: state.EntryReducer.entry,
+        endpoint: state.EntryReducer.endpoint
     }
 }
 

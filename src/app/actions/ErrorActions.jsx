@@ -1,4 +1,4 @@
-import * as C from './../constants/index.jsx'
+import * as C from './../constants'
 
 export function errorReset() {
     return {

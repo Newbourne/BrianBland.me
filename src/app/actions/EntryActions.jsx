@@ -1,5 +1,5 @@
-import * as C from './../constants/index.jsx'
-import { API_INVOKER, API_METHODS } from '../API.jsx'
+import * as C from './../constants'
+import { API_INVOKER, API_METHODS } from '../API'
 
 export function getLatestEntries() {
     return {

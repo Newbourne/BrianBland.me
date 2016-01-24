@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { pushPath } from 'redux-simple-router'
+import { routeActions } from 'redux-simple-router'
 
 class Error extends Component {
     constructor(props, context) {
@@ -10,7 +10,7 @@ class Error extends Component {
     componentWillMount() {
         const { error, dispatch } = this.props
         if (!error || error.lengh > 0) {
-            dispatch(pushPath('/'))
+            dispatch(routeActions.push('/'))
         }
     }
     render() {

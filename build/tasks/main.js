@@ -1,5 +1,5 @@
 'use strict';
-var path = require('path');
+var path       = require('path');
 var gulp       = require('gulp');
 var bs         = require('browser-sync');
 var source     = require('vinyl-source-stream');
@@ -11,42 +11,37 @@ var envify     = require('envify/custom');
 var nodemon    = require('gulp-nodemon');
 var sass       = require('gulp-sass');
 var rename     = require('gulp-rename');
-var cssNano  = require('gulp-cssnano');
-
-var uglify = require('gulp-uglify');
+var cssNano    = require('gulp-cssnano');
+var babel      = require("gulp-babel");
+var uglify     = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
-var gutil = require('gulp-util');
+var gutil      = require('gulp-util');
 
 var vendors    = require('./../vendors');
-var appRoot = path.normalize(__dirname + './../../src/')
+var appRoot    = path.normalize(__dirname + './../../src/')
 
-gulp.task('config-dev', function(){
+gulp.task('config:dev', function() {
     var variables = require('./../../app-secrets-dev.json');
     
     process.env.NODE_ENV = variables.env
-    process.env.API_URL = variables.api.url
-    process.env.API_PORT = variables.api.port
-    process.env.API_PROXY_URL = variables.api.proxy.url
-    process.env.API_PROX_PORT = variables.api.proxy.port
+    process.env.API_HOST = variables.client.api.host
+    process.env.API_PORT = variables.client.api.port
     
     return
 })
 
-gulp.task('config-prod', function(){
+gulp.task('config:prod', function() {
     var variables = require('./../../app-secrets-prod.json');
     
     process.env.NODE_ENV = variables.env
-    process.env.API_URL = variables.api.url
-    process.env.API_PORT = variables.api.port
+    process.env.API_HOST = variables.client.api.host
+    process.env.API_PORT = variables.client.api.port
     
     return
 })
 
 gulp.task('build:vendors', function() {
-  var b = browserify({
-          insertGlobals: true,
-          detectGlobals: true
-        })
+  var b = browserify({ })
 
   _.forEach(vendors, function(vendor) {
     b.require(vendor.file, { expose: vendor.expose })
@@ -77,7 +72,7 @@ gulp.task('build:sass', function () {
 });
 
 gulp.task('build:sync', ['config-dev', 'build:app', 'build:sass', 'build:vendors'], function() {
-  bs({
+  bs.init({
       proxy: "localhost:8080",
       open: true
   });
@@ -90,10 +85,10 @@ gulp.task('build:sync', ['config-dev', 'build:app', 'build:sass', 'build:vendors
 
   var started = false;
   nodemon({
-    script: appRoot + 'index.js',
+    script: appRoot + 'server/index.js',
     stdin: true,
     restartable: true,
-    exec: 'babel-node --stage 0',
+    exec: 'babel-node',
     ignore: ["node_modules/**", "dist/**", "build/**"]
   }).on('start', function() {
       if (!started){
@@ -102,11 +97,22 @@ gulp.task('build:sync', ['config-dev', 'build:app', 'build:sass', 'build:vendors
     })
 })
 
+gulp.task('build:server', function() {
+    // Doesn't work, gulp-babel broken
+    // return 
+    //     gulp.src(appRoot + 'server/index.js')
+    //     .pipe(babel({
+    //         presets: ['es2015', 'react'] //'runtime'
+    //     }))
+    //     .pipe(gulp.dest('./lib'));
+})
+
 gulp.task('build:app', function() {
   var b = browserify({
             insertGlobals: false,
-            detectGlobals: false,
-            debug: true
+            detectGlobals: true,
+            debug: false,
+            extensions: ['.js', '.json', '.jsx']
           })
 
   _.forEach(vendors, function(vendor) {
@@ -117,12 +123,13 @@ gulp.task('build:app', function() {
 
   return b
         .transform(babelify.configure({
-          stage: 0
+          presets: ["es2015", "react"]
         }))
         .transform(envify({
           _: 'purge',
-          NODE_ENV: process.env.NODE_ENV,
-          API_URL: process.env.API_URL,
+          //NODE_ENV: process.env.NODE_ENV,
+          API_HOST: process.env.API_HOST,
+          API_PORT: process.env.API_PORT,
           CLIENT: true
         }),{
           global: true

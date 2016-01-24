@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { handleActions } from 'redux-actions'
 import marked from 'marked'
-import * as C from './../constants/index.jsx'
+import * as C from './../constants'
 
 const initialState = {
     entries: []
