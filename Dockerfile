@@ -1,20 +1,24 @@
 # Image Version
 
-FROM node:5.5.0-wheezy
-MAINTAINER Brian Bland <brian.bland@live.com>
+FROM ubuntu:latest
+
+# Install node
+
+RUN apt-get install -y build-essential
+RUN curl -sL https://deb.nodesource.com/setup_5.x | -E bash - apt-get install -y nodejs
 
 # Bundle app source
 
-RUN mkdir app
-COPY . /app
-WORKDIR /app
+#RUN mkdir app
+#COPY . /app
+#WORKDIR /app
 
-RUN npm install -g gulp
-RUN npm install -g babel
+#RUN npm install -g gulp
+#RUN npm install -g babel
 
 # Install app dependencies
 
-RUN npm install
+#RUN npm install
 
 # RUN npm run build
 
@@ -22,7 +26,7 @@ RUN npm install
 
 # Run Commands
 
-CMD ["npm", "run", "prod"]
+#CMD ["npm", "run", "prod"]
 EXPOSE 8080
 
 # Useful Commands
