@@ -15,7 +15,7 @@ Proof of concept for personal development blog.
 - superagent
 - marked
 
-### Development (Watch)
+### Automated Development w/ browser-sync
 - npm run dev
 
 ### Production
