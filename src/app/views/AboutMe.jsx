@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-
 import * as AboutMeActions from './../actions/AboutMeActions'
 
 class AboutMe extends Component {
@@ -20,7 +19,7 @@ class AboutMe extends Component {
             __html: aboutMeEntry
         }
     }
-    render() {        
+    render() {
         return (
             <div dangerouslySetInnerHTML={ this.dataFn() }>
             </div>

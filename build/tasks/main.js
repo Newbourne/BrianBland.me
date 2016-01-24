@@ -71,15 +71,15 @@ gulp.task('build:sass', function () {
       .pipe(bs.stream());
 });
 
-gulp.task('build:sync', ['config-dev', 'build:app', 'build:sass', 'build:vendors'], function() {
+gulp.task('build:sync', ['config:dev', 'build:app', 'build:sass', 'build:vendors'], function() {
   bs.init({
       proxy: "localhost:8080",
       open: true
   });
 
-  gulp.watch(appRoot + 'app/**/*.js', ['config-dev', 'build:app'], bs.reload);
-  gulp.watch(appRoot + 'app/**/*.jsx', ['config-dev', 'build:app'], bs.reload);
-  gulp.watch(appRoot + 'server/*.js', ['config-dev', 'build:app'], bs.reload);
+  gulp.watch(appRoot + 'app/**/*.js', ['config:dev', 'build:app'], bs.reload);
+  gulp.watch(appRoot + 'app/**/*.jsx', ['config:dev', 'build:app'], bs.reload);
+  gulp.watch(appRoot + 'server/*.js', ['config:dev', 'build:app'], bs.reload);
   gulp.watch(appRoot + 'app/sass/**/*.scss', ['build:sass'], bs.reload);
   gulp.watch('./build/vendors.js', ['build:vendors'], bs.reload);
 

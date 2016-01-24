@@ -12,7 +12,7 @@ module.exports = [
 	{ file: 'babel-runtime/core-js', expose: 'babel-runtime/core-js' },
 	{ file: 'react-tap-event-plugin', expose: 'react-tap-event-plugin' },
 	{ file: 'superagent', expose: 'superagent' },
-    { file: 'marked', expose: 'marked' },
+    { file: 'remarkable', expose: 'remarkable' },
     { file: 'serialize-javascript', expose: 'serialize-javascript' },
     { file: 'lodash', expose: 'lodash' },
     { file: 'history', expose: 'history' }
