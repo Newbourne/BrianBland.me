@@ -1,6 +1,6 @@
 # Image Version
 
-FROM node:0.12.7-wheezy
+FROM node:5.5.0-wheezy
 MAINTAINER Brian Bland <brian.bland@live.com>
 
 # Bundle app source
