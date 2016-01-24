@@ -5,8 +5,8 @@ MAINTAINER Brian Bland <brian.bland@live.com>
 
 # Bundle app source
 
-COPY . /src
-WORKDIR /src
+# COPY . /src
+# WORKDIR /src
 
 RUN npm install -g gulp
 RUN npm install -g babel
@@ -15,13 +15,13 @@ RUN npm install -g babel
 
 RUN npm install
 
-RUN npm run build
+# RUN npm run build
 
-RUN cp data/Raegan.png dist/
+# RUN cp data/Raegan.png dist/
 
 # Run Commands
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "prod"]
 EXPOSE 8080
 
 # Useful Commands
