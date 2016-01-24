@@ -1,13 +1,15 @@
 # Image Version
-FROM ubuntu:latest
+# Uses custom nvm-base image
+# ubuntu:latest + nvm + node 5.5.0 alias default
+FROM bland/nvm-base
 
-# 
-RUN apt-get update
-RUN apt-get install -y build-essential curl
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.2/install.sh | bash
-RUN . ~/.nvm/nvm.sh 
-RUN nvm install 5.5.0
-RUN nvm alias default 5.5.0
+# nvm-base 
+# RUN apt-get update
+# RUN apt-get install -y build-essential curl
+# RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.2/install.sh | bash
+# RUN . ~/.nvm/nvm.sh 
+# RUN nvm install 5.5.0
+# RUN nvm alias default 5.5.0
 
 # Bundle app source
 
