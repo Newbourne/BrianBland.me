@@ -11,7 +11,9 @@ const tempInfo = `
 # Brian Bland
 
 Google Go and Node enthusiast in the Cincinnati market. I grind the Microsoft .NET
-stack in the daylight but prefer working with open source technologies. I see you ASP.NET 5, I like it.
+stack in the daylight but prefer working with open source technologies. 
+
+I see you ASP.NET 5, I like it.
 
 ### Mission
 

@@ -1,11 +1,16 @@
 # Image Version
+# node-base
+# ubuntu-trusty
+# + nvm
+# + node 5.5.0
+# + build-essential
 FROM bland/node-base
 
 RUN mkdir app
 COPY . /app
 WORKDIR /app
 
-RUN npm install
+RUN npm install --production
 
 CMD ["npm", "run", "prod"]
 
