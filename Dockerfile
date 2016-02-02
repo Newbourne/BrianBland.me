@@ -4,7 +4,7 @@
 # + nvm
 # + node 5.5.0
 # + build-essential
-FROM bland/node-base
+FROM bland/ubuntu:v5.5
 
 RUN mkdir app
 COPY . /app
