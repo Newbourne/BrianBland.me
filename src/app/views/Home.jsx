@@ -11,7 +11,7 @@ class Home extends Component {
     componentWillMount() {
         const { dispatch } = this.props
         const actions = bindActionCreators(EntryActions, dispatch)
-        actions.getLatestEntries()
+        //actions.getLatestEntries()
     }
     render() {
         const { entries } = this.props

@@ -11,7 +11,7 @@ class Entry extends Component {
     componentWillMount() {
         const { dispatch, endpoint, params, actions } = this.props
         if (params.key != endpoint) {
-            actions.getEntry(params.key)
+            //actions.getEntry(params.key)
         }
     }
     dataFn() {
@@ -26,9 +26,9 @@ class Entry extends Component {
             </div>
         )
     }
-    static fetch(id) {
-        return EntryActions.getEntry(id)
-    }
+    // static fetch(id) {
+    //     return EntryActions.getEntry(id)
+    // }
 }
 
 function mapStateToProps(state) {

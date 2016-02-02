@@ -75,7 +75,7 @@ export default function render (req, rep, layout) {
                                 <RouterContext {...renderProps} />
                             </Provider>)
                             
-                        state = serialize(store.getState())
+                        state = serialize(store.getState())                       
                         
                         rep.view(layout, { title, body, state })
                 })

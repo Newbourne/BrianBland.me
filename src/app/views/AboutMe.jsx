@@ -45,9 +45,9 @@ class AboutMe extends Component {
         )
     }
     
-    static fetch() {
-        return AboutMeActions.getAboutMeEntry()
-    }
+    // static fetch() {
+    //     return AboutMeActions.getAboutMeEntry()
+    // }
 }
 function mapStateToProps(state) {
     return {
