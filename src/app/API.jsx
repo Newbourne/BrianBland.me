@@ -12,10 +12,11 @@ export function api(route, queryObj) {
         host = window.location.host
     } else {
         /* server-side settings */
-        protocol = process.env.PROTOCOL
-        host = `${process.env.HOST}:${process.env.PORT}`
+        var hostname = require('os').hostname()        
+        protocol = process.env.PROTOCOL + ':'
+        host = `${hostname}:${process.env.PORT}`
     }
-    
+   
     url = `${protocol}//${host}/api/${route}`
     
     var req = new Promise(function (resolve, reject) {
