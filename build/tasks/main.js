@@ -20,26 +20,6 @@ var gutil      = require('gulp-util');
 var vendors    = require('./../vendors');
 var appRoot    = path.normalize(__dirname + './../../src/')
 
-gulp.task('config:dev', function() {
-    var variables = require('./../../app-secrets-dev.json');
-    
-    process.env.NODE_ENV = variables.env
-    process.env.API_HOST = variables.client.api.host
-    process.env.API_PORT = variables.client.api.port
-    
-    return
-})
-
-gulp.task('config:prod', function() {
-    var variables = require('./../../app-secrets-prod.json');
-    
-    process.env.NODE_ENV = variables.env
-    process.env.API_HOST = variables.client.api.host
-    process.env.API_PORT = variables.client.api.port
-    
-    return
-})
-
 gulp.task('build:vendors', function() {
   var b = browserify({ })
 
@@ -71,15 +51,15 @@ gulp.task('build:sass', function () {
       .pipe(bs.stream());
 });
 
-gulp.task('build:sync', ['config:dev', 'build:app', 'build:sass', 'build:vendors'], function() {
+gulp.task('build:sync', ['build:app', 'build:sass', 'build:vendors'], function() {
   bs.init({
       proxy: "localhost:8080",
       open: true
   });
 
-  gulp.watch(appRoot + 'app/**/*.js', ['config:dev', 'build:app'], bs.reload);
-  gulp.watch(appRoot + 'app/**/*.jsx', ['config:dev', 'build:app'], bs.reload);
-  gulp.watch(appRoot + 'server/*.js', ['config:dev', 'build:app'], bs.reload);
+  gulp.watch(appRoot + 'app/**/*.js', ['build:app'], bs.reload);
+  gulp.watch(appRoot + 'app/**/*.jsx', ['build:app'], bs.reload);
+  gulp.watch(appRoot + 'server/*.js', ['build:app'], bs.reload);
   gulp.watch(appRoot + 'app/sass/**/*.scss', ['build:sass'], bs.reload);
   gulp.watch('./build/vendors.js', ['build:vendors'], bs.reload);
 
@@ -95,16 +75,6 @@ gulp.task('build:sync', ['config:dev', 'build:app', 'build:sass', 'build:vendors
         started = true;
       }
     })
-})
-
-gulp.task('build:server', function() {
-    // Doesn't work, gulp-babel broken
-    // return 
-    //     gulp.src(appRoot + 'server/index.js')
-    //     .pipe(babel({
-    //         presets: ['es2015', 'react'] //'runtime'
-    //     }))
-    //     .pipe(gulp.dest('./lib'));
 })
 
 gulp.task('build:app', function() {
@@ -127,9 +97,7 @@ gulp.task('build:app', function() {
         }))
         .transform(envify({
           _: 'purge',
-          //NODE_ENV: process.env.NODE_ENV,
-          API_HOST: process.env.API_HOST,
-          API_PORT: process.env.API_PORT,
+          NODE_ENV: process.env.NODE_ENV,
           CLIENT: true
         }),{
           global: true

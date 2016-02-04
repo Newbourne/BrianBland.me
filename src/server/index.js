@@ -1,14 +1,9 @@
 import Hapi from 'hapi'
 import routes from './routes'
 
-let variables 
+var variables = require('./../../app-secrets.json')
 
-if (process.env.NODE_ENV === 'development') {
-    variables = require('./../../app-secrets-dev.json');
-} else {
-    variables = require('./../../app-secrets-prod.json');
-}
-
+process.env.PROTOCOL = variables.server.protocol
 process.env.HOST = variables.server.host
 process.env.PORT = variables.server.port
 process.env.PROXY_HOST = variables.server.proxy.host

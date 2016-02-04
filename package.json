@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf dist/* && rimraf lib/*",
     "prebuild": "npm run clean -s",
-    "build": "gulp build:prod && babel src --out-dir lib && cp -r src/server/views lib/server/",
+    "build": "NODE_ENV=production gulp build:prod && babel src --out-dir lib && cp -r src/server/views lib/server/",
     "predev": "ps -ef | grep gulp | grep -v grep | awk '{print $2}' | xargs kill -9",
     "dev": "NODE_ENV=development gulp build:sync",
     "prod": "NODE_ENV=production node lib/server/index.js",

@@ -9,7 +9,7 @@ export function getAboutMeEntry() {
                 C.GET_ABOUTME_SUCCESS,
                 C.API_ERROR
             ],
-            endpoint: 'me'
+            endpoint: 'about-me'
         }
     }
 }

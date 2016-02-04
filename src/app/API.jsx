@@ -5,10 +5,18 @@ var md = new Remarkable('commonmark');
 export const API_INVOKER = Symbol('Invoke API')
 
 export function api(route, queryObj) {
-    var apiHost = process.env.API_HOST
-    var apiPort = process.env.API_PORT
+    let protocol, host, url
     
-    const url = `http://${apiHost}:${apiPort}/api/${route}`
+    if (process.env.CLIENT) {
+        protocol = window.location.protocol
+        host = window.location.host
+    } else {
+        /* server-side settings */
+        protocol = process.env.PROTOCOL
+        host = `${process.env.HOST}:${process.env.PORT}`
+    }
+    
+    url = `${protocol}//${host}/api/${route}`
     
     var req = new Promise(function (resolve, reject) {
             request
